@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.1.10123/W32 for ARM      19/Mar/2016  22:03:49
+// IAR ANSI C/C++ Compiler V7.50.1.10123/W32 for ARM      09/Jun/2016  21:52:50
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -9,7 +9,7 @@
 //        E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_flash_ex.c
 //    Command line =  
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_flash_ex.c"
-//        -D USE_HAL_DRIVER -D STM32F746xx -D NDEBUG -lb
+//        -D USE_HAL_DRIVER -D STM32F746xx -lb
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\Debug\List" -o
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\Debug\Obj" --no_cse
 //        --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering
@@ -21,6 +21,7 @@
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\led\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\timer\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\button\" -I
+//        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\usart\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\CMSIS\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\IAR\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\CMSIS\Device\ST\STM32F7xx\Include\"
@@ -243,6 +244,7 @@ HAL_FLASHEx_OBProgram:
         LSLS     R0,R0,#+30
         BPL.N    ??HAL_FLASHEx_OBProgram_4
         LDR      R0,[R4, #+12]
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
         BL       FLASH_OB_RDP_LevelConfig
         MOVS     R5,R0
 ??HAL_FLASHEx_OBProgram_4:
@@ -253,7 +255,7 @@ HAL_FLASHEx_OBProgram:
         ANDS     R0,R0,#0x40000000
         STR      R0,[SP, #+4]
         LDR      R0,[R4, #+20]
-        ANDS     R0,R0,#0x40000000
+        ANDS     R0,R0,#0x80000000
         STR      R0,[SP, #+0]
         LDRB     R0,[R4, #+20]
         ANDS     R3,R0,#0x80
@@ -324,27 +326,24 @@ HAL_FLASHEx_OBGetConfig:
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 FLASH_MassErase:
-        MOVS     R1,#+0
+        LDR.N    R1,??DataTable15_1  ;; 0x40023c10
+        LDR      R1,[R1, #+0]
+        BICS     R1,R1,#0x300
         LDR.N    R2,??DataTable15_1  ;; 0x40023c10
-        LDR      R2,[R2, #+0]
-        BICS     R2,R2,#0x300
-        LDR.N    R3,??DataTable15_1  ;; 0x40023c10
-        STR      R2,[R3, #+0]
+        STR      R1,[R2, #+0]
+        LDR.N    R1,??DataTable15_1  ;; 0x40023c10
+        LDR      R1,[R1, #+0]
+        ORRS     R1,R1,#0x4
         LDR.N    R2,??DataTable15_1  ;; 0x40023c10
-        LDR      R2,[R2, #+0]
-        ORRS     R2,R1,R2
-        LDR.N    R3,??DataTable15_1  ;; 0x40023c10
-        STR      R2,[R3, #+0]
-        LDR.N    R2,??DataTable15_1  ;; 0x40023c10
-        LDR      R2,[R2, #+0]
-        ORRS     R2,R2,#0x4
-        LDR.N    R3,??DataTable15_1  ;; 0x40023c10
-        STR      R2,[R3, #+0]
-        LDR.N    R2,??DataTable15_1  ;; 0x40023c10
-        LDR      R2,[R2, #+0]
+        STR      R1,[R2, #+0]
+        LDR.N    R1,??DataTable15_1  ;; 0x40023c10
+        LDR      R1,[R1, #+0]
+        UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+        LSLS     R2,R0,#+8
         ORRS     R2,R2,#0x10000
-        LDR.N    R3,??DataTable15_1  ;; 0x40023c10
-        STR      R2,[R3, #+0]
+        ORRS     R1,R2,R1
+        LDR.N    R2,??DataTable15_1  ;; 0x40023c10
+        STR      R1,[R2, #+0]
         DSB      
         BX       LR               ;; return
 
@@ -466,12 +465,8 @@ FLASH_OB_RDP_LevelConfig:
         UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
         CMP      R5,#+0
         BNE.N    ??FLASH_OB_RDP_LevelConfig_0
-        LDR.N    R0,??DataTable15_3  ;; 0x40023c14
-        LDR      R0,[R0, #+0]
-        BICS     R0,R0,#0xFF00
-        ORRS     R0,R4,R0
-        LDR.N    R1,??DataTable15_3  ;; 0x40023c14
-        STR      R0,[R1, #+0]
+        LDR.N    R0,??DataTable15_4  ;; 0x40023c15
+        STRB     R4,[R0, #+0]
 ??FLASH_OB_RDP_LevelConfig_0:
         MOVS     R0,R5
         UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
@@ -495,7 +490,7 @@ FLASH_OB_UserConfig:
         UXTB     R11,R11          ;; ZeroExt  R11,R11,#+24,#+24
         CMP      R11,#+0
         BNE.N    ??FLASH_OB_UserConfig_0
-        LDR.N    R0,??DataTable15_4  ;; 0xc00000f0
+        LDR.N    R0,??DataTable15_5  ;; 0xc00000f0
         MOV      R9,R0
         LDR      R0,[SP, #+0]
         ORRS     R0,R0,R4
@@ -544,19 +539,19 @@ FLASH_OB_BootAddressConfig:
         BNE.N    ??FLASH_OB_BootAddressConfig_0
         CMP      R4,#+16
         BNE.N    ??FLASH_OB_BootAddressConfig_1
-        LDR.N    R0,??DataTable15_5  ;; 0x40023c18
+        LDR.N    R0,??DataTable15_6  ;; 0x40023c18
         LDR      R0,[R0, #+0]
         LSRS     R0,R0,#+16
         LSLS     R0,R0,#+16
         ORRS     R0,R5,R0
-        LDR.N    R1,??DataTable15_5  ;; 0x40023c18
+        LDR.N    R1,??DataTable15_6  ;; 0x40023c18
         STR      R0,[R1, #+0]
         B.N      ??FLASH_OB_BootAddressConfig_0
 ??FLASH_OB_BootAddressConfig_1:
-        LDR.N    R0,??DataTable15_5  ;; 0x40023c18
+        LDR.N    R0,??DataTable15_6  ;; 0x40023c18
         LDR      R0,[R0, #+0]
         PKHBT    R0,R0,R5, LSL #+16
-        LDR.N    R1,??DataTable15_5  ;; 0x40023c18
+        LDR.N    R1,??DataTable15_6  ;; 0x40023c18
         STR      R0,[R1, #+0]
 ??FLASH_OB_BootAddressConfig_0:
         MOVS     R0,R6
@@ -568,7 +563,7 @@ FLASH_OB_BootAddressConfig:
 FLASH_OB_GetUser:
         LDR.N    R0,??DataTable15_3  ;; 0x40023c14
         LDR      R0,[R0, #+0]
-        LDR.N    R1,??DataTable15_4  ;; 0xc00000f0
+        LDR.N    R1,??DataTable15_5  ;; 0xc00000f0
         ANDS     R0,R1,R0
         BX       LR               ;; return
 
@@ -583,15 +578,28 @@ FLASH_OB_GetWRP:
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 FLASH_OB_GetRDP:
-        MOVS     R0,#+0
-        LDR.N    R1,??DataTable15_3  ;; 0x40023c14
-        LDR      R1,[R1, #+0]
-        ANDS     R1,R1,#0xFF00
-        CMP      R1,#+43520
-        BEQ.N    ??FLASH_OB_GetRDP_0
-        MOVS     R1,#+1
+        MOVS     R0,#+170
+        LDR.N    R1,??DataTable15_4  ;; 0x40023c15
+        LDRB     R1,[R1, #+0]
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        CMP      R1,#+170
+        BNE.N    ??FLASH_OB_GetRDP_0
+        MOVS     R1,#+170
         MOVS     R0,R1
+        B.N      ??FLASH_OB_GetRDP_1
 ??FLASH_OB_GetRDP_0:
+        LDR.N    R1,??DataTable15_4  ;; 0x40023c15
+        LDRB     R1,[R1, #+0]
+        UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+        CMP      R1,#+204
+        BNE.N    ??FLASH_OB_GetRDP_2
+        MOVS     R1,#+204
+        MOVS     R0,R1
+        B.N      ??FLASH_OB_GetRDP_1
+??FLASH_OB_GetRDP_2:
+        MOVS     R1,#+85
+        MOVS     R0,R1
+??FLASH_OB_GetRDP_1:
         UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
         BX       LR               ;; return
 
@@ -610,13 +618,13 @@ FLASH_OB_GetBootAddress:
         MOVS     R0,#+0
         CMP      R1,#+16
         BNE.N    ??FLASH_OB_GetBootAddress_0
-        LDR.N    R2,??DataTable15_5  ;; 0x40023c18
+        LDR.N    R2,??DataTable15_6  ;; 0x40023c18
         LDR      R2,[R2, #+0]
         UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
         MOVS     R0,R2
         B.N      ??FLASH_OB_GetBootAddress_1
 ??FLASH_OB_GetBootAddress_0:
-        LDR.N    R2,??DataTable15_5  ;; 0x40023c18
+        LDR.N    R2,??DataTable15_6  ;; 0x40023c18
         LDR      R2,[R2, #+0]
         LSRS     R2,R2,#+16
         MOVS     R0,R2
@@ -651,12 +659,18 @@ FLASH_OB_GetBootAddress:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable15_4:
-        DC32     0xc00000f0
+        DC32     0x40023c15
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable15_5:
+        DC32     0xc00000f0
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable15_6:
         DC32     0x40023c18
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
@@ -672,9 +686,9 @@ FLASH_OB_GetBootAddress:
 
         END
 // 
-// 1 138 bytes in section .text
+// 1 146 bytes in section .text
 // 
-// 1 138 bytes of CODE memory
+// 1 146 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

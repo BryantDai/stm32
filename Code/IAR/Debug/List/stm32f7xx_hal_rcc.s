@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.1.10123/W32 for ARM      19/Mar/2016  22:03:51
+// IAR ANSI C/C++ Compiler V7.50.1.10123/W32 for ARM      09/Jun/2016  21:52:53
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -9,7 +9,7 @@
 //        E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_rcc.c
 //    Command line =  
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_rcc.c"
-//        -D USE_HAL_DRIVER -D STM32F746xx -D NDEBUG -lb
+//        -D USE_HAL_DRIVER -D STM32F746xx -lb
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\Debug\List" -o
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\Debug\Obj" --no_cse
 //        --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering
@@ -21,6 +21,7 @@
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\led\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\timer\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\button\" -I
+//        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\usart\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\CMSIS\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\IAR\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\CMSIS\Device\ST\STM32F7xx\Include\"
@@ -408,6 +409,8 @@ HAL_RCC_OscConfig:
         LDRB     R0,[R4, #+0]
         LSLS     R0,R0,#+29
         BPL.W    ??HAL_RCC_OscConfig_24
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR.W    R0,??DataTable12_8  ;; 0x40023840
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x10000000
@@ -922,6 +925,8 @@ HAL_RCC_MCOConfig:
         MOVS     R6,R2
         CMP      R4,#+0
         BNE.N    ??HAL_RCC_MCOConfig_0
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR.N    R0,??DataTable12_13  ;; 0x40023830
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x1
@@ -954,6 +959,8 @@ HAL_RCC_MCOConfig:
         STR      R0,[R1, #+0]
         B.N      ??HAL_RCC_MCOConfig_1
 ??HAL_RCC_MCOConfig_0:
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR.N    R0,??DataTable12_13  ;; 0x40023830
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x4
@@ -1429,6 +1436,11 @@ HAL_RCC_NMI_IRQHandler:
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_RCC_CSSCallback:
+        SUB      SP,SP,#+4
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
+        LDR      R0,[SP, #+0]
+        ADD      SP,SP,#+4
         BX       LR               ;; return
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
@@ -1445,9 +1457,9 @@ HAL_RCC_CSSCallback:
         END
 // 
 //    16 bytes in section .rodata
-// 2 880 bytes in section .text
+// 2 902 bytes in section .text
 // 
-// 2 880 bytes of CODE  memory
+// 2 902 bytes of CODE  memory
 //    16 bytes of CONST memory
 //
 //Errors: none

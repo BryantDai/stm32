@@ -39,9 +39,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f7xx_it.h"
-#include "bsp_led.h"
-#include "bsp_timer.h"
-#include "os.h"
+
 
 /** @addtogroup STM32F7xx_HAL_Examples
   * @{
@@ -55,7 +53,6 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
@@ -75,7 +72,7 @@
   * @param  None
   * @retval None
   */
-void WWDG_IRQHandler(void)
+__weak void WWDG_IRQHandler(void)
 {
 
 }
@@ -87,7 +84,7 @@ void WWDG_IRQHandler(void)
   * @retval None
   */
 
-void PVD_IRQHandler(void)
+__weak void PVD_IRQHandler(void)
 {
 
 }
@@ -98,7 +95,7 @@ void PVD_IRQHandler(void)
   * @retval None
   */
 
-void TAMP_STAMP_IRQHandler(void)
+__weak void TAMP_STAMP_IRQHandler(void)
 {
 
 }
@@ -108,7 +105,7 @@ void TAMP_STAMP_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void RTC_WKUP_IRQHandler(void)
+__weak void RTC_WKUP_IRQHandler(void)
 {
 
 }
@@ -119,7 +116,7 @@ void RTC_WKUP_IRQHandler(void)
   * @retval None
   */
 
-void FLASH_IRQHandler(void)
+__weak void FLASH_IRQHandler(void)
 {
 
 }
@@ -130,7 +127,7 @@ void FLASH_IRQHandler(void)
   * @retval None
   */
 
-void RCC_IRQHandler(void)
+__weak void RCC_IRQHandler(void)
 {
 
 }
@@ -141,7 +138,7 @@ void RCC_IRQHandler(void)
   * @retval None
   */
 
-void EXTI0_IRQHandler(void)
+__weak void EXTI0_IRQHandler(void)
 {
 
 }
@@ -153,7 +150,7 @@ void EXTI0_IRQHandler(void)
   * @retval None
   */
 
-void EXTI1_IRQHandler(void)
+__weak void EXTI1_IRQHandler(void)
 {
 
 }
@@ -164,7 +161,7 @@ void EXTI1_IRQHandler(void)
   * @retval None
   */
 
-void EXTI2_IRQHandler(void)
+__weak void EXTI2_IRQHandler(void)
 {
 
 }
@@ -175,7 +172,7 @@ void EXTI2_IRQHandler(void)
   * @retval None
   */
 
-void EXTI3_IRQHandler(void)
+__weak void EXTI3_IRQHandler(void)
 {
 
 }
@@ -187,7 +184,7 @@ void EXTI3_IRQHandler(void)
   * @retval None
   */
 
-void EXTI4_IRQHandler(void)
+__weak void EXTI4_IRQHandler(void)
 {
 
 }
@@ -198,7 +195,7 @@ void EXTI4_IRQHandler(void)
   * @retval None
   */
 
-void DMA1_Stream0_IRQHandler(void)
+__weak void DMA1_Stream0_IRQHandler(void)
 {
 
 }
@@ -209,7 +206,7 @@ void DMA1_Stream0_IRQHandler(void)
   * @retval None
   */
 
-void DMA1_Stream1_IRQHandler(void)
+__weak void DMA1_Stream1_IRQHandler(void)
 {
 
 }
@@ -221,7 +218,7 @@ void DMA1_Stream1_IRQHandler(void)
   * @retval None
   */
 
-void DMA1_Stream2_IRQHandler(void)
+__weak void DMA1_Stream2_IRQHandler(void)
 {
 
 }
@@ -232,7 +229,7 @@ void DMA1_Stream2_IRQHandler(void)
   * @retval None
   */
 
-void DMA1_Stream3_IRQHandler(void)
+__weak void DMA1_Stream3_IRQHandler(void)
 {
 
 }
@@ -243,7 +240,7 @@ void DMA1_Stream3_IRQHandler(void)
   * @retval None
   */
 
-void DMA1_Stream4_IRQHandler(void)
+__weak void DMA1_Stream4_IRQHandler(void)
 {
 
 }
@@ -255,7 +252,7 @@ void DMA1_Stream4_IRQHandler(void)
   * @retval None
   */
 
-void DMA1_Stream5_IRQHandler(void)
+__weak void DMA1_Stream5_IRQHandler(void)
 {
 
 }
@@ -266,7 +263,7 @@ void DMA1_Stream5_IRQHandler(void)
   * @retval None
   */
 
-void DMA1_Stream6_IRQHandler(void)
+__weak void DMA1_Stream6_IRQHandler(void)
 {
 
 }
@@ -281,7 +278,7 @@ void DMA1_Stream6_IRQHandler(void)
   * @retval None
   */
 
-void ADC_IRQHandler(void)
+__weak void ADC_IRQHandler(void)
 {
 
 }
@@ -293,7 +290,7 @@ void ADC_IRQHandler(void)
   * @retval None
   */
 
-void CAN1_TX_IRQHandler(void)
+__weak void CAN1_TX_IRQHandler(void)
 {
 
 }
@@ -304,7 +301,7 @@ void CAN1_TX_IRQHandler(void)
   * @retval None
   */
 
-void CAN1_RX0_IRQHandler(void)
+__weak void CAN1_RX0_IRQHandler(void)
 {
 
 }
@@ -315,7 +312,7 @@ void CAN1_RX0_IRQHandler(void)
   * @retval None
   */
 
-void CAN1_RX1_IRQHandler(void)
+__weak void CAN1_RX1_IRQHandler(void)
 {
 
 }
@@ -327,7 +324,7 @@ void CAN1_RX1_IRQHandler(void)
   * @retval None
   */
 
-void CAN1_SCE_IRQHandler(void)
+__weak void CAN1_SCE_IRQHandler(void)
 {
 
 }
@@ -338,7 +335,7 @@ void CAN1_SCE_IRQHandler(void)
   * @retval None
   */
 
-void EXTI9_5_IRQHandler(void)
+__weak void EXTI9_5_IRQHandler(void)
 {
 
 }
@@ -350,7 +347,7 @@ void EXTI9_5_IRQHandler(void)
   * @retval None
   */
 
-void TIM1_BRK_TIM9_IRQHandler(void)
+__weak void TIM1_BRK_TIM9_IRQHandler(void)
 {
 
 }
@@ -361,7 +358,7 @@ void TIM1_BRK_TIM9_IRQHandler(void)
   * @retval None
   */
 
-void TIM1_UP_TIM10_IRQHandler(void)
+__weak void TIM1_UP_TIM10_IRQHandler(void)
 {
 
 }
@@ -372,7 +369,7 @@ void TIM1_UP_TIM10_IRQHandler(void)
   * @retval None
   */
 
-void TIM1_TRG_COM_TIM11_IRQHandler(void)
+__weak void TIM1_TRG_COM_TIM11_IRQHandler(void)
 {
 
 }
@@ -384,7 +381,7 @@ void TIM1_TRG_COM_TIM11_IRQHandler(void)
   * @retval None
   */
 
-void TIM1_CC_IRQHandler(void)
+__weak void TIM1_CC_IRQHandler(void)
 {
 
 }
@@ -395,7 +392,7 @@ void TIM1_CC_IRQHandler(void)
   * @retval None
   */
 
-void TIM2_IRQHandler(void)
+__weak void TIM2_IRQHandler(void)
 {
 
 }
@@ -406,20 +403,11 @@ void TIM2_IRQHandler(void)
   * @retval None
   */
 
-void TIM3_IRQHandler(void)
+__weak void TIM3_IRQHandler(void)
 {
-    CPU_SR_ALLOC();
 
-
-    CPU_CRITICAL_ENTER();                                       /* Tell the OS that we are starting an ISR            */
-
-    OSIntEnter();
-
-    CPU_CRITICAL_EXIT();
-    __HAL_TIM_CLEAR_IT(&TimHandle,TIM_DIER_UIE);
-    bsp_LedToggle(LED_GREEN);
-    OSIntExit();    
 }
+
 
 
 /**
@@ -428,7 +416,7 @@ void TIM3_IRQHandler(void)
   * @retval None
   */
 
-void TIM4_IRQHandler(void)
+__weak void TIM4_IRQHandler(void)
 {
 
 }
@@ -439,7 +427,7 @@ void TIM4_IRQHandler(void)
   * @retval None
   */
 
-void I2C1_EV_IRQHandler(void)
+__weak void I2C1_EV_IRQHandler(void)
 {
 
 }
@@ -454,7 +442,7 @@ void I2C1_EV_IRQHandler(void)
   * @retval None
   */
 
-void I2C1_ER_IRQHandler(void)
+__weak void I2C1_ER_IRQHandler(void)
 {
 
 }
@@ -466,7 +454,7 @@ void I2C1_ER_IRQHandler(void)
   * @retval None
   */
 
-void I2C2_EV_IRQHandler(void)
+__weak void I2C2_EV_IRQHandler(void)
 {
 
 }
@@ -477,7 +465,7 @@ void I2C2_EV_IRQHandler(void)
   * @retval None
   */
 
-void I2C2_ER_IRQHandler(void)
+__weak void I2C2_ER_IRQHandler(void)
 {
 
 }
@@ -488,7 +476,7 @@ void I2C2_ER_IRQHandler(void)
   * @retval None
   */
 
-void SPI1_IRQHandler(void)
+__weak void SPI1_IRQHandler(void)
 {
 
 }
@@ -500,7 +488,7 @@ void SPI1_IRQHandler(void)
   * @retval None
   */
 
-void SPI2_IRQHandler(void)
+__weak void SPI2_IRQHandler(void)
 {
 
 }
@@ -511,7 +499,7 @@ void SPI2_IRQHandler(void)
   * @retval None
   */
 
-void USART1_IRQHandler(void)
+__weak void USART1_IRQHandler(void)
 {
 
 }
@@ -525,7 +513,7 @@ void USART1_IRQHandler(void)
   * @retval None
   */
 
-void USART2_IRQHandler(void)
+__weak void USART2_IRQHandler(void)
 {
 
 }
@@ -536,7 +524,7 @@ void USART2_IRQHandler(void)
   * @retval None
   */
 
-void USART3_IRQHandler(void)
+__weak void USART3_IRQHandler(void)
 {
 
 }
@@ -547,7 +535,7 @@ void USART3_IRQHandler(void)
   * @retval None
   */
 
-void EXTI15_10_IRQHandler(void)
+__weak void EXTI15_10_IRQHandler(void)
 {
 
 }
@@ -559,7 +547,7 @@ void EXTI15_10_IRQHandler(void)
   * @retval None
   */
 
-void RTC_Alarm_IRQHandler(void)
+__weak void RTC_Alarm_IRQHandler(void)
 {
 
 }
@@ -570,7 +558,7 @@ void RTC_Alarm_IRQHandler(void)
   * @retval None
   */
 
-void OTG_FS_WKUP_IRQHandler(void)
+__weak void OTG_FS_WKUP_IRQHandler(void)
 {
 
 }
@@ -581,7 +569,7 @@ void OTG_FS_WKUP_IRQHandler(void)
   * @retval None
   */
 
-void TIM8_BRK_TIM12_IRQHandler(void)
+__weak void TIM8_BRK_TIM12_IRQHandler(void)
 {
 
 }
@@ -593,7 +581,7 @@ void TIM8_BRK_TIM12_IRQHandler(void)
   * @retval None
   */
 
-void TIM8_UP_TIM13_IRQHandler(void)
+__weak void TIM8_UP_TIM13_IRQHandler(void)
 {
 
 }
@@ -604,7 +592,7 @@ void TIM8_UP_TIM13_IRQHandler(void)
   * @retval None
   */
 
-void TIM8_TRG_COM_TIM14_IRQHandler(void)
+__weak void TIM8_TRG_COM_TIM14_IRQHandler(void)
 {
 
 }
@@ -619,7 +607,7 @@ void TIM8_TRG_COM_TIM14_IRQHandler(void)
   * @retval None
   */
 
-void TIM8_CC_IRQHandler(void)
+__weak void TIM8_CC_IRQHandler(void)
 {
 
 }
@@ -631,7 +619,7 @@ void TIM8_CC_IRQHandler(void)
   * @retval None
   */
 
-void DMA1_Stream7_IRQHandler(void)
+__weak void DMA1_Stream7_IRQHandler(void)
 {
 
 }
@@ -642,7 +630,7 @@ void DMA1_Stream7_IRQHandler(void)
   * @retval None
   */
 
-void FMC_IRQHandler(void)
+__weak void FMC_IRQHandler(void)
 {
 
 }
@@ -653,7 +641,7 @@ void FMC_IRQHandler(void)
   * @retval None
   */
 
-void SDMMC1_IRQHandler(void)
+__weak void SDMMC1_IRQHandler(void)
 {
 
 }
@@ -665,7 +653,7 @@ void SDMMC1_IRQHandler(void)
   * @retval None
   */
 
-void TIM5_IRQHandler(void)
+__weak void TIM5_IRQHandler(void)
 {
 
 }
@@ -676,7 +664,7 @@ void TIM5_IRQHandler(void)
   * @retval None
   */
 
-void SPI3_IRQHandler(void)
+__weak void SPI3_IRQHandler(void)
 {
 
 }
@@ -688,7 +676,7 @@ void SPI3_IRQHandler(void)
   * @retval None
   */
 
-void UART4_IRQHandler(void)
+__weak void UART4_IRQHandler(void)
 {
 
 }
@@ -699,7 +687,7 @@ void UART4_IRQHandler(void)
   * @retval None
   */
 
-void UART5_IRQHandler(void)
+__weak void UART5_IRQHandler(void)
 {
 
 }
@@ -710,7 +698,7 @@ void UART5_IRQHandler(void)
   * @retval None
   */
 
-void TIM6_DAC_IRQHandler(void)
+__weak void TIM6_DAC_IRQHandler(void)
 {
 
 }
@@ -722,7 +710,7 @@ void TIM6_DAC_IRQHandler(void)
   * @retval None
   */
 
-void TIM7_IRQHandler(void)
+__weak void TIM7_IRQHandler(void)
 {
 
 }
@@ -733,7 +721,7 @@ void TIM7_IRQHandler(void)
   * @retval None
   */
 
-void DMA2_Stream0_IRQHandler(void)
+__weak void DMA2_Stream0_IRQHandler(void)
 {
 
 }
@@ -745,7 +733,7 @@ void DMA2_Stream0_IRQHandler(void)
   * @retval None
   */
 
-void DMA2_Stream1_IRQHandler(void)
+__weak void DMA2_Stream1_IRQHandler(void)
 {
 
 }
@@ -756,7 +744,7 @@ void DMA2_Stream1_IRQHandler(void)
   * @retval None
   */
 
-void DMA2_Stream2_IRQHandler(void)
+__weak void DMA2_Stream2_IRQHandler(void)
 {
 
 }
@@ -767,7 +755,7 @@ void DMA2_Stream2_IRQHandler(void)
   * @retval None
   */
 
-void DMA2_Stream3_IRQHandler(void)
+__weak void DMA2_Stream3_IRQHandler(void)
 {
 
 }
@@ -779,7 +767,7 @@ void DMA2_Stream3_IRQHandler(void)
   * @retval None
   */
 
-void DMA2_Stream4_IRQHandler(void)
+__weak void DMA2_Stream4_IRQHandler(void)
 {
 
 }
@@ -790,7 +778,7 @@ void DMA2_Stream4_IRQHandler(void)
   * @retval None
   */
 
-void ETH_IRQHandler(void)
+__weak void ETH_IRQHandler(void)
 {
 
 }
@@ -801,7 +789,7 @@ void ETH_IRQHandler(void)
   * @retval None
   */
 
-void ETH_WKUP_IRQHandler(void)
+__weak void ETH_WKUP_IRQHandler(void)
 {
 
 }
@@ -813,7 +801,7 @@ void ETH_WKUP_IRQHandler(void)
   * @retval None
   */
 
-void CAN2_TX_IRQHandler(void)
+__weak void CAN2_TX_IRQHandler(void)
 {
 
 }
@@ -824,7 +812,7 @@ void CAN2_TX_IRQHandler(void)
   * @retval None
   */
 
-void CAN2_RX0_IRQHandler(void)
+__weak void CAN2_RX0_IRQHandler(void)
 {
 
 }
@@ -835,7 +823,7 @@ void CAN2_RX0_IRQHandler(void)
   * @retval None
   */
 
-void CAN2_RX1_IRQHandler(void)
+__weak void CAN2_RX1_IRQHandler(void)
 {
 
 }
@@ -846,7 +834,7 @@ void CAN2_RX1_IRQHandler(void)
   * @retval None
   */
 
-void CAN2_SCE_IRQHandler(void)
+__weak void CAN2_SCE_IRQHandler(void)
 {
 
 }
@@ -857,7 +845,7 @@ void CAN2_SCE_IRQHandler(void)
   * @retval None
   */
 
-void OTG_FS_IRQHandler(void)
+__weak void OTG_FS_IRQHandler(void)
 {
 
 }
@@ -869,7 +857,7 @@ void OTG_FS_IRQHandler(void)
   * @retval None
   */
 
-void DMA2_Stream5_IRQHandler(void)
+__weak void DMA2_Stream5_IRQHandler(void)
 {
 
 }
@@ -880,7 +868,7 @@ void DMA2_Stream5_IRQHandler(void)
   * @retval None
   */
 
-void DMA2_Stream6_IRQHandler(void)
+__weak void DMA2_Stream6_IRQHandler(void)
 {
 
 }
@@ -894,7 +882,7 @@ void DMA2_Stream6_IRQHandler(void)
   * @retval None
   */
 
-void DMA2_Stream7_IRQHandler(void)
+__weak void DMA2_Stream7_IRQHandler(void)
 {
 
 }
@@ -905,7 +893,7 @@ void DMA2_Stream7_IRQHandler(void)
   * @retval None
   */
 
-void USART6_IRQHandler(void)
+__weak void USART6_IRQHandler(void)
 {
 
 }
@@ -916,7 +904,7 @@ void USART6_IRQHandler(void)
   * @retval None
   */
 
-void I2C3_EV_IRQHandler(void)
+__weak void I2C3_EV_IRQHandler(void)
 {
 
 }
@@ -928,7 +916,7 @@ void I2C3_EV_IRQHandler(void)
   * @retval None
   */
 
-void I2C3_ER_IRQHandler(void)
+__weak void I2C3_ER_IRQHandler(void)
 {
 
 }
@@ -939,7 +927,7 @@ void I2C3_ER_IRQHandler(void)
   * @retval None
   */
 
-void OTG_HS_EP1_OUT_IRQHandler(void)
+__weak void OTG_HS_EP1_OUT_IRQHandler(void)
 {
 
 }
@@ -950,7 +938,7 @@ void OTG_HS_EP1_OUT_IRQHandler(void)
   * @retval None
   */
 
-void OTG_HS_EP1_IN_IRQHandler(void)
+__weak void OTG_HS_EP1_IN_IRQHandler(void)
 {
 
 }
@@ -962,7 +950,7 @@ void OTG_HS_EP1_IN_IRQHandler(void)
   * @retval None
   */
 
-void OTG_HS_WKUP_IRQHandler(void)
+__weak void OTG_HS_WKUP_IRQHandler(void)
 {
 
 }
@@ -973,7 +961,7 @@ void OTG_HS_WKUP_IRQHandler(void)
   * @retval None
   */
 
-void OTG_HS_IRQHandler(void)
+__weak void OTG_HS_IRQHandler(void)
 {
 
 }
@@ -984,7 +972,7 @@ void OTG_HS_IRQHandler(void)
   * @retval None
   */
 
-void DCMI_IRQHandler(void)
+__weak void DCMI_IRQHandler(void)
 {
 
 }
@@ -995,7 +983,7 @@ void DCMI_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void CRYP_IRQHandler(void)
+__weak void CRYP_IRQHandler(void)
 {
 
 }
@@ -1009,7 +997,7 @@ void CRYP_IRQHandler(void)
   * @retval None
   */
 
-void RNG_IRQHandler(void)
+__weak void RNG_IRQHandler(void)
 {
 
 }
@@ -1020,7 +1008,7 @@ void RNG_IRQHandler(void)
   * @retval None
   */
 
-void FPU_IRQHandler(void)
+__weak void FPU_IRQHandler(void)
 {
 
 }
@@ -1031,7 +1019,7 @@ void FPU_IRQHandler(void)
   * @retval None
   */
 
-void UART7_IRQHandler(void)
+__weak void UART7_IRQHandler(void)
 {
 
 }
@@ -1043,7 +1031,7 @@ void UART7_IRQHandler(void)
   * @retval None
   */
 
-void UART8_IRQHandler(void)
+__weak void UART8_IRQHandler(void)
 {
 
 }
@@ -1054,7 +1042,7 @@ void UART8_IRQHandler(void)
   * @retval None
   */
 
-void SPI4_IRQHandler(void)
+__weak void SPI4_IRQHandler(void)
 {
 
 }
@@ -1067,7 +1055,7 @@ void SPI4_IRQHandler(void)
   * @retval None
   */
 
-void SPI5_IRQHandler(void)
+__weak void SPI5_IRQHandler(void)
 {
 
 }
@@ -1079,7 +1067,7 @@ void SPI5_IRQHandler(void)
   * @retval None
   */
 
-void SPI6_IRQHandler(void)
+__weak void SPI6_IRQHandler(void)
 {
 
 }
@@ -1090,7 +1078,7 @@ void SPI6_IRQHandler(void)
   * @retval None
   */
 
-void SAI1_IRQHandler(void)
+__weak void SAI1_IRQHandler(void)
 {
 
 }
@@ -1104,7 +1092,7 @@ void SAI1_IRQHandler(void)
   * @retval None
   */
 
-void LTDC_IRQHandler(void)
+__weak void LTDC_IRQHandler(void)
 {
 
 }
@@ -1115,7 +1103,7 @@ void LTDC_IRQHandler(void)
   * @retval None
   */
 
-void LTDC_ER_IRQHandler(void)
+__weak void LTDC_ER_IRQHandler(void)
 {
 
 }
@@ -1126,7 +1114,7 @@ void LTDC_ER_IRQHandler(void)
   * @retval None
   */
 
-void DMA2D_IRQHandler(void)
+__weak void DMA2D_IRQHandler(void)
 {
 
 }
@@ -1138,7 +1126,7 @@ void DMA2D_IRQHandler(void)
   * @retval None
   */
 
-void SAI2_IRQHandler(void)
+__weak void SAI2_IRQHandler(void)
 {
 
 }
@@ -1149,7 +1137,7 @@ void SAI2_IRQHandler(void)
   * @retval None
   */
 
-void QUADSPI_IRQHandler(void)
+__weak void QUADSPI_IRQHandler(void)
 {
 
 }
@@ -1160,7 +1148,7 @@ void QUADSPI_IRQHandler(void)
   * @retval None
   */
 
-void LPTIM1_IRQHandler(void)
+__weak void LPTIM1_IRQHandler(void)
 {
 
 }
@@ -1172,7 +1160,7 @@ void LPTIM1_IRQHandler(void)
   * @retval None
   */
 
-void HDMI_CEC_IRQHandler(void)
+__weak void HDMI_CEC_IRQHandler(void)
 {
 
 }
@@ -1183,7 +1171,7 @@ void HDMI_CEC_IRQHandler(void)
   * @retval None
   */
 
-void I2C4_EV_IRQHandler(void)
+__weak void I2C4_EV_IRQHandler(void)
 {
 
 }
@@ -1195,7 +1183,7 @@ void I2C4_EV_IRQHandler(void)
   * @retval None
   */
 
-void I2C4_ER_IRQHandler(void)
+__weak void I2C4_ER_IRQHandler(void)
 {
 
 }
@@ -1206,7 +1194,7 @@ void I2C4_ER_IRQHandler(void)
   * @retval None
   */
 
-void SPDIF_RX_IRQHandler(void)
+__weak void SPDIF_RX_IRQHandler(void)
 {
 
 }
@@ -1214,4 +1202,5 @@ void SPDIF_RX_IRQHandler(void)
 
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
 

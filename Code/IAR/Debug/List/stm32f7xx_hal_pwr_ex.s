@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.1.10123/W32 for ARM      19/Mar/2016  22:03:51
+// IAR ANSI C/C++ Compiler V7.50.1.10123/W32 for ARM      09/Jun/2016  21:52:52
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -9,7 +9,7 @@
 //        E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pwr_ex.c
 //    Command line =  
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pwr_ex.c"
-//        -D USE_HAL_DRIVER -D STM32F746xx -D NDEBUG -lb
+//        -D USE_HAL_DRIVER -D STM32F746xx -lb
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\Debug\List" -o
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\Debug\Obj" --no_cse
 //        --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering
@@ -21,6 +21,7 @@
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\led\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\timer\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\button\" -I
+//        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\usart\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\CMSIS\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\IAR\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\CMSIS\Device\ST\STM32F7xx\Include\"
@@ -190,6 +191,8 @@ HAL_PWREx_EnableOverDrive:
         PUSH     {R4,LR}
         SUB      SP,SP,#+8
         MOVS     R4,#+0
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR.N    R0,??DataTable12_2  ;; 0x40023840
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x10000000
@@ -248,6 +251,8 @@ HAL_PWREx_DisableOverDrive:
         PUSH     {R4,LR}
         SUB      SP,SP,#+8
         MOVS     R4,#+0
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR.N    R0,??DataTable12_2  ;; 0x40023840
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x10000000
@@ -308,6 +313,8 @@ HAL_PWREx_EnterUnderDriveSTOPMode:
         MOVS     R5,R1
         MOVS     R6,#+0
         MOVS     R7,#+0
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR.N    R0,??DataTable12_2  ;; 0x40023840
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x10000000
@@ -387,6 +394,8 @@ HAL_PWREx_ControlVoltageScaling:
         PUSH     {R3-R5,LR}
         MOVS     R4,R0
         MOVS     R5,#+0
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR.N    R0,??DataTable12_2  ;; 0x40023840
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x10000000
@@ -421,6 +430,8 @@ HAL_PWREx_ControlVoltageScaling:
         MOVS     R0,#+3
         B.N      ??HAL_PWREx_ControlVoltageScaling_3
 ??HAL_PWREx_ControlVoltageScaling_2:
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR.N    R0,??DataTable12_1  ;; 0x40007000
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0xC000
@@ -527,9 +538,9 @@ HAL_PWREx_ControlVoltageScaling:
 
         END
 // 
-// 794 bytes in section .text
+// 814 bytes in section .text
 // 
-// 794 bytes of CODE memory
+// 814 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

@@ -2,7 +2,7 @@
 FillEnabled=0
 OverflowWarningsEnabled=1
 WarningThreshold=90
-SpWarningsEnabled=1
+SpWarningsEnabled=0
 WarnLogOnly=1
 UseTrigger=1
 TriggerName=main
@@ -13,7 +13,7 @@ CStepIntDis=_ 0
 stlinkserialNo=F883FE14
 stlinkfoundProbes=
 [DebugChecksum]
-Checksum=-624485718
+Checksum=933109998
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -24,12 +24,12 @@ ShowArgs=0
 [Disassembly]
 MixedMode=1
 [SWOTraceHWSettings]
-OverrideDefaultClocks=0
-CpuClock=72000000
+OverrideDefaultClocks=1
+CpuClock=216000000
 ClockAutoDetect=0
 ClockWanted=2000000
 JtagSpeed=2000000
-Prescaler=36
+Prescaler=108
 TimeStampPrescIndex=0
 TimeStampPrescData=0
 PcSampCYCTAP=1
@@ -59,6 +59,7 @@ Fmt0=OS_TCB-BasePrio	4	0
 Fmt1=OS_TCB-PendStatus	4	0
 Fmt2=OS_TCB-Prio	4	0
 Fmt3=OS_TCB-TaskState	4	0
+Fmt4=UART_HandleTypeDef-pRxBuffPtr	4	0
 [array_types]
 Fmt0=CPU_DATA[1]	4	0
 Fmt1=CPU_STK[256]	4	0
@@ -105,12 +106,6 @@ ShowTimeLog=1
 SumEnabled=0
 ShowTimeSum=1
 SumSortOrder=0
-[Disassemble mode]
-mode=0
-[Breakpoints2]
-Bp0=_ 0 "EMUL_DATA" "__HAL_RCC_PLL_ENABLE" 0 0 0 0 4294967295
-Bp1=_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\BSP\timer\bsp_timer.c}.115.1" 0 0 1 "" 0 "" 0
-Count=2
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -118,9 +113,6 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
-[Aliases]
-Count=0
-SuppressDialog=0
 [DriverProfiling]
 Enabled=0
 Mode=3
@@ -131,3 +123,12 @@ Exclusions=
 Enabled=0
 [CallStackStripe]
 ShowTiming=1
+[Disassemble mode]
+mode=3
+[Breakpoints2]
+Bp0=_ 0 "EMUL_DATA" "__HAL_RCC_PLL_ENABLE" 0 0 0 0 4294967295
+Bp1=_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma.c}.226.12" 0 0 1 "" 0 "" 0
+Count=2
+[Aliases]
+Count=0
+SuppressDialog=0

@@ -1,4 +1,4 @@
-"E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\STM32F7xx_HAL_Driver\Src\stm32f7xx_it.c"
+"E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\User\stm32f7xx_it.c"
 -std=c99
 -ferror-limit=100
 -I
@@ -11,6 +11,8 @@ E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\led
 E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\timer
 -I
 E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\button
+-I
+E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\usart
 -I
 E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\CMSIS
 -I
@@ -52,6 +54,8 @@ E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\BSP\timer
 -I
 E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\BSP\button
 -I
+E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\BSP\usart
+-I
 E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\BSP\CMSIS
 -I
 E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\BSP\IAR
@@ -79,7 +83,6 @@ E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\uCOS-III\uCOS-III\Ports\ARM-Cortex-
 D:\Program Files (x86)\IAR Systems\Embedded Workbench 7.3\arm\CMSIS\Include
 -DUSE_HAL_DRIVER=1
 -DSTM32F746xx=1
--DNDEBUG=1
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0

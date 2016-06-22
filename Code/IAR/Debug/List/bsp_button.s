@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.1.10123/W32 for ARM      19/Mar/2016  22:22:16
+// IAR ANSI C/C++ Compiler V7.50.1.10123/W32 for ARM      09/Jun/2016  21:52:32
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -9,7 +9,7 @@
 //        E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\BSP\button\bsp_button.c
 //    Command line =  
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\BSP\button\bsp_button.c"
-//        -D USE_HAL_DRIVER -D STM32F746xx -D NDEBUG -lb
+//        -D USE_HAL_DRIVER -D STM32F746xx -lb
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\Debug\List" -o
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\Debug\Obj" --no_cse
 //        --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering
@@ -21,6 +21,7 @@
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\led\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\timer\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\button\" -I
+//        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\usart\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\CMSIS\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\IAR\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\CMSIS\Device\ST\STM32F7xx\Include\"
@@ -58,6 +59,7 @@
         PUBLIC bsp_ButtonInit
         PUBLIC bsp_ButtonScan
         PUBLIC g_buttonInit
+        PUBLIC g_buttonNum
 
 
         SECTION `.data`:DATA:REORDER:NOROOT(2)
@@ -182,7 +184,7 @@ bsp_ButtonScan:
         STRB     R0,[R1, #+0]
         LDR.N    R0,??DataTable3_3
         LDRB     R0,[R0, #+0]
-        CMP      R0,#+50
+        CMP      R0,#+25
         BLT.N    ??bsp_ButtonScan_8
         MOVS     R0,#+1
         MOVS     R6,R0

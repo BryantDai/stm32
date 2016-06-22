@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.1.10123/W32 for ARM      19/Mar/2016  22:22:15
+// IAR ANSI C/C++ Compiler V7.50.1.10123/W32 for ARM      09/Jun/2016  21:52:30
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -8,7 +8,7 @@
 //    Source file  =  E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\BSP\bsp.c
 //    Command line =  
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\BSP\bsp.c" -D
-//        USE_HAL_DRIVER -D STM32F746xx -D NDEBUG -lb
+//        USE_HAL_DRIVER -D STM32F746xx -lb
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\Debug\List" -o
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\Debug\Obj" --no_cse
 //        --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering
@@ -20,6 +20,7 @@
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\led\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\timer\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\button\" -I
+//        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\usart\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\CMSIS\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\IAR\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\CMSIS\Device\ST\STM32F7xx\Include\"
@@ -50,6 +51,7 @@
 
         #define SHT_PROGBITS 0x1
 
+        EXTERN HAL_MPU_ConfigRegion
         EXTERN HAL_NVIC_SetPriorityGrouping
         EXTERN HAL_PWREx_EnableOverDrive
         EXTERN HAL_RCC_ClockConfig
@@ -61,6 +63,7 @@
         EXTERN bsp_ButtonInit
         EXTERN bsp_LedInit
         EXTERN bsp_TimerInit
+        EXTERN bsp_UsartInit
 
         PUBLIC HAL_InitTick
         PUBLIC bsp_CpuClkFreq
@@ -70,12 +73,46 @@
 
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
+// static __interwork __softfp void HAL_MPU_Disable(void)
+HAL_MPU_Disable:
+        LDR.N    R0,??DataTable4  ;; 0xe000ed24
+        LDR      R0,[R0, #+0]
+        BICS     R0,R0,#0x10000
+        LDR.N    R1,??DataTable4  ;; 0xe000ed24
+        STR      R0,[R1, #+0]
+        LDR.N    R0,??DataTable4_1  ;; 0xe000ed94
+        LDR      R0,[R0, #+0]
+        LSRS     R0,R0,#+1
+        LSLS     R0,R0,#+1
+        LDR.N    R1,??DataTable4_1  ;; 0xe000ed94
+        STR      R0,[R1, #+0]
+        BX       LR               ;; return
+
+        SECTION `.text`:CODE:NOROOT(1)
+        THUMB
+// static __interwork __softfp void HAL_MPU_Enable(uint32_t)
+HAL_MPU_Enable:
+        ORRS     R1,R0,#0x1
+        LDR.N    R2,??DataTable4_1  ;; 0xe000ed94
+        STR      R1,[R2, #+0]
+        LDR.N    R1,??DataTable4  ;; 0xe000ed24
+        LDR      R1,[R1, #+0]
+        ORRS     R1,R1,#0x10000
+        LDR.N    R2,??DataTable4  ;; 0xe000ed24
+        STR      R1,[R2, #+0]
+        BX       LR               ;; return
+
+        SECTION `.text`:CODE:NOROOT(1)
+        THUMB
 bsp_Init:
         PUSH     {R7,LR}
+        BL       bsp_MPUConfig
         BL       bsp_SystemClockConfig
         BL       bsp_LedInit
         BL       bsp_ButtonInit
         BL       bsp_TimerInit
+        MOV      R0,#+9600
+        BL       bsp_UsartInit
         POP      {R0,PC}          ;; return
 
         SECTION `.text`:CODE:NOROOT(1)
@@ -141,7 +178,7 @@ HAL_InitTick:
         MOVS     R4,R0
         MOVS     R0,#+0
         BL       HAL_NVIC_SetPriorityGrouping
-        LDR.N    R0,??DataTable1
+        LDR.N    R0,??DataTable4_2
         LDRB     R0,[R0, #+0]
         CMP      R0,#+0
         BEQ.N    ??HAL_InitTick_0
@@ -156,7 +193,7 @@ bsp_TickInit:
         PUSH     {R3-R5,LR}
         BL       bsp_CpuClkFreq
         MOVS     R4,R0
-        LDR.N    R0,??DataTable1_1
+        LDR.N    R0,??DataTable4_3
         LDR      R0,[R0, #+0]
         UDIV     R0,R4,R0
         MOVS     R5,R0
@@ -164,17 +201,70 @@ bsp_TickInit:
         BL       OS_CPU_SysTickInit
         POP      {R0,R4,R5,PC}    ;; return
 
+        SECTION `.text`:CODE:NOROOT(1)
+        THUMB
+bsp_MPUConfig:
+        PUSH     {LR}
+        SUB      SP,SP,#+20
+        BL       HAL_MPU_Disable
+        MOVS     R0,#+1
+        STRB     R0,[SP, #+0]
+        LDR.N    R0,??DataTable4_4  ;; 0x20010000
+        STR      R0,[SP, #+4]
+        MOVS     R0,#+17
+        STRB     R0,[SP, #+8]
+        MOVS     R0,#+3
+        STRB     R0,[SP, #+11]
+        MOVS     R0,#+0
+        STRB     R0,[SP, #+15]
+        MOVS     R0,#+1
+        STRB     R0,[SP, #+14]
+        MOVS     R0,#+0
+        STRB     R0,[SP, #+13]
+        MOVS     R0,#+0
+        STRB     R0,[SP, #+1]
+        MOVS     R0,#+0
+        STRB     R0,[SP, #+10]
+        MOVS     R0,#+0
+        STRB     R0,[SP, #+9]
+        MOVS     R0,#+0
+        STRB     R0,[SP, #+12]
+        MOV      R0,SP
+        BL       HAL_MPU_ConfigRegion
+        MOVS     R0,#+4
+        BL       HAL_MPU_Enable
+        ADD      SP,SP,#+20
+        POP      {PC}             ;; return
+
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1:
+??DataTable4:
+        DC32     0xe000ed24
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable4_1:
+        DC32     0xe000ed94
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable4_2:
         DC32     OSRunning
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable1_1:
+??DataTable4_3:
         DC32     OSCfg_TickRate_Hz
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable4_4:
+        DC32     0x20010000
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -189,9 +279,9 @@ bsp_TickInit:
 
         END
 // 
-// 190 bytes in section .text
+// 350 bytes in section .text
 // 
-// 190 bytes of CODE memory
+// 350 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

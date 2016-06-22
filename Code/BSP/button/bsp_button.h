@@ -3,7 +3,7 @@
  * Description        : Header file for bsp_button.c
  * Experiment platform: Stm32f746-discovery-board
  * Cpu                : Stm32f746NGH
- * Library Version    : ST 1.0
+ * Library Version    : ST 1.3
  * Author             : Bryant
  * Create Date        : Feb-27-2016
 *****************************************************************************************************************/
@@ -23,8 +23,6 @@
 /* Includes ----------------------------------------------------------------------------------------------------*/
 #include "stm32f7xx_hal.h"
 
-
-/* Exported constants ------------------------------------------------------------------------------------------*/
 /* Exported macro ----------------------------------------------------------------------------------------------*/
 #define USER_BUTTON_PORT        GPIOI
 #define USER_BUTTON_PIN         GPIO_PIN_11
@@ -82,6 +80,9 @@ typedef enum
 }BUTTON_StateTypeDef;
 
 
+/* Exported constants ------------------------------------------------------------------------------------------*/
+extern uint8_t g_buttonNum;
+
 /* Exported functions ------------------------------------------------------------------------------------------*/
 extern void bsp_ButtonInit(void);
 extern BUTTON_EventTypeDef bsp_ButtonScan(uint8_t buttonNm);
@@ -94,3 +95,4 @@ extern BUTTON_EventTypeDef bsp_ButtonScan(uint8_t buttonNm);
 #endif   /* __BSP_BUTTON_H                                                                                      */
 
 /*************************************************END OF FILE****************************************************/
+

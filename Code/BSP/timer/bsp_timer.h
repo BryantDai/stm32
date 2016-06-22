@@ -30,7 +30,7 @@
 /* Exported types ---------------------------------------------------------------------------------------------*/
 /* Exported functions -----------------------------------------------------------------------------------------*/
 extern void bsp_TimerInit(void);
-extern void TIM3_IRQHandler(void);
+extern void TIMx_IRQHandler(void);
 
 
 /* Export C interface if this file used by C++ source code                                                     */

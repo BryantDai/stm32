@@ -3,7 +3,7 @@
  * Description        : Header file for bsp_led.c
  * Experiment platform: Stm32f746-discovery-board
  * Cpu                : Stm32f746NGH
- * Library Version    : ST 1.0
+ * Library Version    : ST 1.3
  * Author             : Bryant
  * Create Date        : Feb-27-2016
 ****************************************************************************************************************/

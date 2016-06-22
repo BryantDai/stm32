@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.1.10123/W32 for ARM      19/Mar/2016  22:22:16
+// IAR ANSI C/C++ Compiler V7.50.1.10123/W32 for ARM      09/Jun/2016  21:52:32
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -9,7 +9,7 @@
 //        E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\BSP\led\bsp_led.c
 //    Command line =  
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\BSP\led\bsp_led.c" -D
-//        USE_HAL_DRIVER -D STM32F746xx -D NDEBUG -lb
+//        USE_HAL_DRIVER -D STM32F746xx -lb
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\Debug\List" -o
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\Debug\Obj" --no_cse
 //        --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering
@@ -21,6 +21,7 @@
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\led\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\timer\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\button\" -I
+//        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\usart\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\CMSIS\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\IAR\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\CMSIS\Device\ST\STM32F7xx\Include\"
@@ -144,6 +145,8 @@ bsp_GPIOxClockEnable:
         LDR.N    R1,??DataTable4_2  ;; 0x40020000
         CMP      R0,R1
         BNE.N    ??bsp_GPIOxClockEnable_0
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR.N    R1,??DataTable4_3  ;; 0x40023830
         LDR      R1,[R1, #+0]
         ORRS     R1,R1,#0x1
@@ -158,6 +161,8 @@ bsp_GPIOxClockEnable:
         LDR.N    R1,??DataTable4_4  ;; 0x40020400
         CMP      R0,R1
         BNE.N    ??bsp_GPIOxClockEnable_1
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR.N    R1,??DataTable4_3  ;; 0x40023830
         LDR      R1,[R1, #+0]
         ORRS     R1,R1,#0x2
@@ -172,6 +177,8 @@ bsp_GPIOxClockEnable:
         LDR.N    R1,??DataTable4_5  ;; 0x40020800
         CMP      R0,R1
         BNE.N    ??bsp_GPIOxClockEnable_2
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR.N    R1,??DataTable4_3  ;; 0x40023830
         LDR      R1,[R1, #+0]
         ORRS     R1,R1,#0x4
@@ -186,6 +193,8 @@ bsp_GPIOxClockEnable:
         LDR.N    R1,??DataTable4_6  ;; 0x40020c00
         CMP      R0,R1
         BNE.N    ??bsp_GPIOxClockEnable_3
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR.N    R1,??DataTable4_3  ;; 0x40023830
         LDR      R1,[R1, #+0]
         ORRS     R1,R1,#0x8
@@ -200,6 +209,8 @@ bsp_GPIOxClockEnable:
         LDR.N    R1,??DataTable4_7  ;; 0x40021000
         CMP      R0,R1
         BNE.N    ??bsp_GPIOxClockEnable_4
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR.N    R1,??DataTable4_3  ;; 0x40023830
         LDR      R1,[R1, #+0]
         ORRS     R1,R1,#0x10
@@ -214,6 +225,8 @@ bsp_GPIOxClockEnable:
         LDR.N    R1,??DataTable4_8  ;; 0x40021400
         CMP      R0,R1
         BNE.N    ??bsp_GPIOxClockEnable_5
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR.N    R1,??DataTable4_3  ;; 0x40023830
         LDR      R1,[R1, #+0]
         ORRS     R1,R1,#0x20
@@ -228,6 +241,8 @@ bsp_GPIOxClockEnable:
         LDR.N    R1,??DataTable4_9  ;; 0x40021800
         CMP      R0,R1
         BNE.N    ??bsp_GPIOxClockEnable_6
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR.N    R1,??DataTable4_3  ;; 0x40023830
         LDR      R1,[R1, #+0]
         ORRS     R1,R1,#0x40
@@ -242,6 +257,8 @@ bsp_GPIOxClockEnable:
         LDR.N    R1,??DataTable4_10  ;; 0x40021c00
         CMP      R0,R1
         BNE.N    ??bsp_GPIOxClockEnable_7
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR.N    R1,??DataTable4_3  ;; 0x40023830
         LDR      R1,[R1, #+0]
         ORRS     R1,R1,#0x80
@@ -256,6 +273,8 @@ bsp_GPIOxClockEnable:
         LDR.N    R1,??DataTable4_11  ;; 0x40022000
         CMP      R0,R1
         BNE.N    ??bsp_GPIOxClockEnable_8
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR.N    R1,??DataTable4_3  ;; 0x40023830
         LDR      R1,[R1, #+0]
         ORRS     R1,R1,#0x100
@@ -270,6 +289,8 @@ bsp_GPIOxClockEnable:
         LDR.N    R1,??DataTable4_12  ;; 0x40022400
         CMP      R0,R1
         BNE.N    ??bsp_GPIOxClockEnable_9
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR.N    R1,??DataTable4_3  ;; 0x40023830
         LDR      R1,[R1, #+0]
         ORRS     R1,R1,#0x200
@@ -284,6 +305,8 @@ bsp_GPIOxClockEnable:
         LDR.N    R1,??DataTable4_13  ;; 0x40022800
         CMP      R0,R1
         BNE.N    ??bsp_GPIOxClockEnable_10
+        MOVS     R1,#+0
+        STR      R1,[SP, #+0]
         LDR.N    R1,??DataTable4_3  ;; 0x40023830
         LDR      R1,[R1, #+0]
         ORRS     R1,R1,#0x400
@@ -447,9 +470,9 @@ bsp_LedToggle:
         END
 // 
 //  16 bytes in section .data
-// 608 bytes in section .text
+// 652 bytes in section .text
 // 
-// 608 bytes of CODE memory
+// 652 bytes of CODE memory
 //  16 bytes of DATA memory
 //
 //Errors: none

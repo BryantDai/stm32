@@ -3,7 +3,7 @@
  * Description        : Header file for bsp.c
  * Experiment platform: Stm32f746-discovery-board
  * Cpu                : Stm32f746NGH
- * Library Version    : ST 1.0
+ * Library Version    : ST 1.3
  * Author             : Bryant
  * Create Date        : Mar-19-2016
 ****************************************************************************************************************/
@@ -20,6 +20,10 @@
 /* Includes ---------------------------------------------------------------------------------------------------*/
 #include  <cpu.h>
 #include  <cpu_core.h>
+#include "bsp_led.h"
+#include "bsp_timer.h"
+#include "bsp_usart.h"
+#include "bsp_button.h"
 
 /* Exported constants -----------------------------------------------------------------------------------------*/
 /* Exported macro ---------------------------------------------------------------------------------------------*/
@@ -38,6 +42,7 @@ extern CPU_INT32U  bsp_CpuClkFreq(void);
 
 #endif    /* __BSP_H                                                                                           */
 /**************************************************END OF FILE***************************************************/
+
 
 
 

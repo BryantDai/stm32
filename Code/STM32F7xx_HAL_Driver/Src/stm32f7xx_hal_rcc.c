@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f7xx_hal_rcc.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    12-May-2015
+  * @version V1.0.3
+  * @date    13-November-2015
   * @brief   RCC HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the Reset and Clock Control (RCC) peripheral:
@@ -48,8 +48,8 @@
           after the clock enable bit is set on the hardware register
 
     [..]  
-      Workarounds:
-	  (#) For AHB & APB peripherals, a dummy read to the peripheral register has been
+      Implemented Workaround:
+      (+) For AHB & APB peripherals, a dummy read to the peripheral register has been
           inserted in each __HAL_RCC_PPP_CLK_ENABLE() macro.
 
   @endverbatim
@@ -1172,6 +1172,9 @@ void HAL_RCC_NMI_IRQHandler(void)
   */
 __weak void HAL_RCC_CSSCallback(void)
 {
+__IO uint32_t tmpreg = 0x00;
+  UNUSED(tmpreg);
+  
   /* NOTE : This function Should not be modified, when the callback is needed,
             the HAL_RCC_CSSCallback could be implemented in the user file
    */ 

@@ -8,8 +8,10 @@
  * Create Date        : Feb-27-2016
 ****************************************************************************************************************/
 /* Includes ---------------------------------------------------------------------------------------------------*/
+#include "os.h"
+#include "app_cfg.h"
 #include "bsp_timer.h"
-#include "bsp_led.h"
+#include "bsp_usart.h"
 
 
 
@@ -37,50 +39,50 @@ TIM_HandleTypeDef    TimHandle;
 ****************************************************************************************************************/
 void bsp_TimerInit(void)
 {
-    uint32_t uwPrescalerValue;
-    /* --------------------------------------------------------------------------------------------------------
-     * There are two sentences below the clock tree picture, and it is :
-     *  1 : When 'TIMPRE' bit of the RCC_DKCFGR1 register is reset, if APBx prescaler is 1, then TIMxCLK = PCLKx, 
-            otherwise TIMxCLK = 2 * PCLKx.
-     *  2 : When 'TIMPRE' bit of the RCC_DKCFGR1 register is set, if APBx prescaler is 1,2 or 4, then TIMxCLK = HCLK,
-            otherwise TIMxCLK = 4x PCLKx.
-        In this example TIM3 input clock (TIM3CLK)  is set to APB1 clock (PCLK1) x2,
-        since APB1 prescaler is equal to 4 and 'TIMPRE' bit is reset
-          TIM3CLK = PCLK1*2 and  PCLK1 = HCLK/4
-          => TIM3CLK = HCLK/2 = SystemCoreClock/2
-        To get TIM3 counter clock at 10 KHz, the Prescaler is computed as follows:
-        Prescaler = (TIM3CLK / TIM3 counter clock) - 1
-        Prescaler = ((SystemCoreClock/2) /10 KHz) - 1
+  uint32_t uwPrescalerValue;
+  /* --------------------------------------------------------------------------------------------------------
+   * There are two sentences below the clock tree picture, and it is :
+   *  1 : When 'TIMPRE' bit of the RCC_DKCFGR1 register is reset, if APBx prescaler is 1, then TIMxCLK = PCLKx, 
+          otherwise TIMxCLK = 2 * PCLKx.
+   *  2 : When 'TIMPRE' bit of the RCC_DKCFGR1 register is set, if APBx prescaler is 1,2 or 4, then TIMxCLK = HCLK,
+          otherwise TIMxCLK = 4x PCLKx.
+      In this example TIM3 input clock (TIM3CLK)  is set to APB1 clock (PCLK1) x2,
+      since APB1 prescaler is equal to 4 and 'TIMPRE' bit is reset
+        TIM3CLK = PCLK1*2 and  PCLK1 = HCLK/4
+        => TIM3CLK = HCLK/2 = SystemCoreClock/2
+      To get TIM3 counter clock at 10 KHz, the Prescaler is computed as follows:
+      Prescaler = (TIM3CLK / TIM3 counter clock) - 1
+      Prescaler = ((SystemCoreClock/2) /10 KHz) - 1
 
-        Note:
-         SystemCoreClock variable holds HCLK frequency and is defined in system_stm32f7xx.c file.
-         Each time the core clock (HCLK) changes, user had to update SystemCoreClock
-         variable value. Otherwise, any configuration based on this variable will be incorrect.
-         This variable is updated in three ways:
-          1) by calling CMSIS function SystemCoreClockUpdate()
-          2) by calling HAL API function HAL_RCC_GetSysClockFreq()
-          3) each time HAL_RCC_ClockConfig() is called to configure the system clock frequency
-  -------------------------------------------------------------------------------------------------------------*/  
-    /* Compute the prescaler value to have TIMx counter clock equal to 10000 Hz */
-    uwPrescalerValue = (uint32_t)((HAL_RCC_GetHCLKFreq() / 2) / 10000) - 1;
-  
-    /* Set TIMx instance */
-    TimHandle.Instance = TIMx;
-  
-    /* Initialize TIMx peripheral as follows:
-         + Period = 10000 - 1
-         + Prescaler = ((SystemCoreClock / 2)/10000) - 1
-         + ClockDivision = 0
-         + Counter direction = Up
-    */
-    TimHandle.Init.Period            = 10000 - 1;
-    TimHandle.Init.Prescaler         = uwPrescalerValue;
-    TimHandle.Init.ClockDivision     = 0;
-    TimHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
-    TimHandle.Init.RepetitionCounter = 0;
-  
-    HAL_TIM_Base_Init(&TimHandle);
-    HAL_TIM_Base_Start_IT(&TimHandle);          
+      Note:
+       SystemCoreClock variable holds HCLK frequency and is defined in system_stm32f7xx.c file.
+       Each time the core clock (HCLK) changes, user had to update SystemCoreClock
+       variable value. Otherwise, any configuration based on this variable will be incorrect.
+       This variable is updated in three ways:
+        1) by calling CMSIS function SystemCoreClockUpdate()
+        2) by calling HAL API function HAL_RCC_GetSysClockFreq()
+        3) each time HAL_RCC_ClockConfig() is called to configure the system clock frequency
+-------------------------------------------------------------------------------------------------------------*/  
+  /* Compute the prescaler value to have TIMx counter clock equal to 10000 Hz */
+  uwPrescalerValue = (uint32_t)((HAL_RCC_GetHCLKFreq() / 2) / 10000) - 1;
+
+  /* Set TIMx instance */
+  TimHandle.Instance = TIMx;
+
+  /* Initialize TIMx peripheral as follows: (interrupt each 20ms)
+       + Period = 10000 - 1
+       + Prescaler = ((SystemCoreClock / 2)/10000) - 1
+       + ClockDivision = 0
+       + Counter direction = Up
+  */
+  TimHandle.Init.Period            = 200 - 1;
+  TimHandle.Init.Prescaler         = uwPrescalerValue;
+  TimHandle.Init.ClockDivision     = 0;
+  TimHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
+  TimHandle.Init.RepetitionCounter = 0;
+
+  HAL_TIM_Base_Init(&TimHandle);
+  HAL_TIM_Base_Start_IT(&TimHandle);          
 }
 
 
@@ -104,6 +106,48 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim)
 
   /* Enable the TIMx global Interrupt                                                                          */
   HAL_NVIC_EnableIRQ(TIMx_IRQn);
+}
+
+
+
+ 
+/***************************************************************************************************************
+ * Function Name   : TIMx_IRQHandler
+ * Description     : This function handles TIM global interrupt request.
+ * Input Variable  : void 
+ * Return Variable : None
+ * Author          : Bryant
+ * Create Date     : Mar-05-2016
+ * Call            : Outside
+****************************************************************************************************************/
+void TIMx_IRQHandler(void)
+{
+  OS_ERR err;
+  CPU_SR_ALLOC();
+
+
+  CPU_CRITICAL_ENTER();                                       /* Tell the OS that we are starting an ISR            */
+
+  OSIntEnter();
+
+  CPU_CRITICAL_EXIT();
+  __HAL_TIM_CLEAR_IT(&TimHandle,TIM_DIER_UIE);
+  OSTaskSemPost ((OS_TCB  *)&g_buttonScanTaskTCB,(OS_OPT)OS_OPT_POST_NONE,(OS_ERR  *)&err);
+
+  if (g_uartHandle.RxXferSize == 1)
+  {
+    if (++g_usartTimeoutCounter > 2)
+    {
+        g_usartTimeoutCounter = 0u;
+        g_uartHandle.RxXferSize = 0u;
+        OSTaskQPost((OS_TCB    *)&g_usartMsgTaskTCB,
+                    (void      *)g_uartHandle.pRxBuffPtr,
+                    (OS_MSG_SIZE)g_uartHandle.RxXferCount,
+                    (OS_OPT     )OS_OPT_POST_FIFO,
+                    (OS_ERR    *)&err);
+    }
+  }
+  OSIntExit();    
 }
 
 

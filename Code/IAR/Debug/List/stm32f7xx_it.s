@@ -1,15 +1,15 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.1.10123/W32 for ARM      19/Mar/2016  22:22:18
+// IAR ANSI C/C++ Compiler V7.50.1.10123/W32 for ARM      09/Jun/2016  21:52:57
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
 //    Endian       =  little
 //    Source file  =  
-//        E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\STM32F7xx_HAL_Driver\Src\stm32f7xx_it.c
+//        E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\User\stm32f7xx_it.c
 //    Command line =  
-//        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\STM32F7xx_HAL_Driver\Src\stm32f7xx_it.c"
-//        -D USE_HAL_DRIVER -D STM32F746xx -D NDEBUG -lb
+//        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\User\stm32f7xx_it.c" -D
+//        USE_HAL_DRIVER -D STM32F746xx -lb
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\Debug\List" -o
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\Debug\Obj" --no_cse
 //        --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering
@@ -21,6 +21,7 @@
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\led\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\timer\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\button\" -I
+//        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\usart\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\CMSIS\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\IAR\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\CMSIS\Device\ST\STM32F7xx\Include\"
@@ -51,111 +52,104 @@
 
         #define SHT_PROGBITS 0x1
 
-        EXTERN CPU_IntDisMeasStart
-        EXTERN CPU_IntDisMeasStop
-        EXTERN OSIntEnter
-        EXTERN OSIntExit
-        EXTERN TimHandle
-        EXTERN bsp_LedToggle
-
-        PUBLIC ADC_IRQHandler
-        PUBLIC CAN1_RX0_IRQHandler
-        PUBLIC CAN1_RX1_IRQHandler
-        PUBLIC CAN1_SCE_IRQHandler
-        PUBLIC CAN1_TX_IRQHandler
-        PUBLIC CAN2_RX0_IRQHandler
-        PUBLIC CAN2_RX1_IRQHandler
-        PUBLIC CAN2_SCE_IRQHandler
-        PUBLIC CAN2_TX_IRQHandler
-        PUBLIC CRYP_IRQHandler
-        PUBLIC DCMI_IRQHandler
-        PUBLIC DMA1_Stream0_IRQHandler
-        PUBLIC DMA1_Stream1_IRQHandler
-        PUBLIC DMA1_Stream2_IRQHandler
-        PUBLIC DMA1_Stream3_IRQHandler
-        PUBLIC DMA1_Stream4_IRQHandler
-        PUBLIC DMA1_Stream5_IRQHandler
-        PUBLIC DMA1_Stream6_IRQHandler
-        PUBLIC DMA1_Stream7_IRQHandler
-        PUBLIC DMA2D_IRQHandler
-        PUBLIC DMA2_Stream0_IRQHandler
-        PUBLIC DMA2_Stream1_IRQHandler
-        PUBLIC DMA2_Stream2_IRQHandler
-        PUBLIC DMA2_Stream3_IRQHandler
-        PUBLIC DMA2_Stream4_IRQHandler
-        PUBLIC DMA2_Stream5_IRQHandler
-        PUBLIC DMA2_Stream6_IRQHandler
-        PUBLIC DMA2_Stream7_IRQHandler
-        PUBLIC ETH_IRQHandler
-        PUBLIC ETH_WKUP_IRQHandler
-        PUBLIC EXTI0_IRQHandler
-        PUBLIC EXTI15_10_IRQHandler
-        PUBLIC EXTI1_IRQHandler
-        PUBLIC EXTI2_IRQHandler
-        PUBLIC EXTI3_IRQHandler
-        PUBLIC EXTI4_IRQHandler
-        PUBLIC EXTI9_5_IRQHandler
-        PUBLIC FLASH_IRQHandler
-        PUBLIC FMC_IRQHandler
-        PUBLIC FPU_IRQHandler
-        PUBLIC HDMI_CEC_IRQHandler
-        PUBLIC I2C1_ER_IRQHandler
-        PUBLIC I2C1_EV_IRQHandler
-        PUBLIC I2C2_ER_IRQHandler
-        PUBLIC I2C2_EV_IRQHandler
-        PUBLIC I2C3_ER_IRQHandler
-        PUBLIC I2C3_EV_IRQHandler
-        PUBLIC I2C4_ER_IRQHandler
-        PUBLIC I2C4_EV_IRQHandler
-        PUBLIC LPTIM1_IRQHandler
-        PUBLIC LTDC_ER_IRQHandler
-        PUBLIC LTDC_IRQHandler
-        PUBLIC OTG_FS_IRQHandler
-        PUBLIC OTG_FS_WKUP_IRQHandler
-        PUBLIC OTG_HS_EP1_IN_IRQHandler
-        PUBLIC OTG_HS_EP1_OUT_IRQHandler
-        PUBLIC OTG_HS_IRQHandler
-        PUBLIC OTG_HS_WKUP_IRQHandler
-        PUBLIC PVD_IRQHandler
-        PUBLIC QUADSPI_IRQHandler
-        PUBLIC RCC_IRQHandler
-        PUBLIC RNG_IRQHandler
-        PUBLIC RTC_Alarm_IRQHandler
-        PUBLIC RTC_WKUP_IRQHandler
-        PUBLIC SAI1_IRQHandler
-        PUBLIC SAI2_IRQHandler
-        PUBLIC SDMMC1_IRQHandler
-        PUBLIC SPDIF_RX_IRQHandler
-        PUBLIC SPI1_IRQHandler
-        PUBLIC SPI2_IRQHandler
-        PUBLIC SPI3_IRQHandler
-        PUBLIC SPI4_IRQHandler
-        PUBLIC SPI5_IRQHandler
-        PUBLIC SPI6_IRQHandler
-        PUBLIC TAMP_STAMP_IRQHandler
-        PUBLIC TIM1_BRK_TIM9_IRQHandler
-        PUBLIC TIM1_CC_IRQHandler
-        PUBLIC TIM1_TRG_COM_TIM11_IRQHandler
-        PUBLIC TIM1_UP_TIM10_IRQHandler
-        PUBLIC TIM2_IRQHandler
-        PUBLIC TIM3_IRQHandler
-        PUBLIC TIM4_IRQHandler
-        PUBLIC TIM5_IRQHandler
-        PUBLIC TIM6_DAC_IRQHandler
-        PUBLIC TIM7_IRQHandler
-        PUBLIC TIM8_BRK_TIM12_IRQHandler
-        PUBLIC TIM8_CC_IRQHandler
-        PUBLIC TIM8_TRG_COM_TIM14_IRQHandler
-        PUBLIC TIM8_UP_TIM13_IRQHandler
-        PUBLIC UART4_IRQHandler
-        PUBLIC UART5_IRQHandler
-        PUBLIC UART7_IRQHandler
-        PUBLIC UART8_IRQHandler
-        PUBLIC USART1_IRQHandler
-        PUBLIC USART2_IRQHandler
-        PUBLIC USART3_IRQHandler
-        PUBLIC USART6_IRQHandler
-        PUBLIC WWDG_IRQHandler
+        PUBWEAK ADC_IRQHandler
+        PUBWEAK CAN1_RX0_IRQHandler
+        PUBWEAK CAN1_RX1_IRQHandler
+        PUBWEAK CAN1_SCE_IRQHandler
+        PUBWEAK CAN1_TX_IRQHandler
+        PUBWEAK CAN2_RX0_IRQHandler
+        PUBWEAK CAN2_RX1_IRQHandler
+        PUBWEAK CAN2_SCE_IRQHandler
+        PUBWEAK CAN2_TX_IRQHandler
+        PUBWEAK CRYP_IRQHandler
+        PUBWEAK DCMI_IRQHandler
+        PUBWEAK DMA1_Stream0_IRQHandler
+        PUBWEAK DMA1_Stream1_IRQHandler
+        PUBWEAK DMA1_Stream2_IRQHandler
+        PUBWEAK DMA1_Stream3_IRQHandler
+        PUBWEAK DMA1_Stream4_IRQHandler
+        PUBWEAK DMA1_Stream5_IRQHandler
+        PUBWEAK DMA1_Stream6_IRQHandler
+        PUBWEAK DMA1_Stream7_IRQHandler
+        PUBWEAK DMA2D_IRQHandler
+        PUBWEAK DMA2_Stream0_IRQHandler
+        PUBWEAK DMA2_Stream1_IRQHandler
+        PUBWEAK DMA2_Stream2_IRQHandler
+        PUBWEAK DMA2_Stream3_IRQHandler
+        PUBWEAK DMA2_Stream4_IRQHandler
+        PUBWEAK DMA2_Stream5_IRQHandler
+        PUBWEAK DMA2_Stream6_IRQHandler
+        PUBWEAK DMA2_Stream7_IRQHandler
+        PUBWEAK ETH_IRQHandler
+        PUBWEAK ETH_WKUP_IRQHandler
+        PUBWEAK EXTI0_IRQHandler
+        PUBWEAK EXTI15_10_IRQHandler
+        PUBWEAK EXTI1_IRQHandler
+        PUBWEAK EXTI2_IRQHandler
+        PUBWEAK EXTI3_IRQHandler
+        PUBWEAK EXTI4_IRQHandler
+        PUBWEAK EXTI9_5_IRQHandler
+        PUBWEAK FLASH_IRQHandler
+        PUBWEAK FMC_IRQHandler
+        PUBWEAK FPU_IRQHandler
+        PUBWEAK HDMI_CEC_IRQHandler
+        PUBWEAK I2C1_ER_IRQHandler
+        PUBWEAK I2C1_EV_IRQHandler
+        PUBWEAK I2C2_ER_IRQHandler
+        PUBWEAK I2C2_EV_IRQHandler
+        PUBWEAK I2C3_ER_IRQHandler
+        PUBWEAK I2C3_EV_IRQHandler
+        PUBWEAK I2C4_ER_IRQHandler
+        PUBWEAK I2C4_EV_IRQHandler
+        PUBWEAK LPTIM1_IRQHandler
+        PUBWEAK LTDC_ER_IRQHandler
+        PUBWEAK LTDC_IRQHandler
+        PUBWEAK OTG_FS_IRQHandler
+        PUBWEAK OTG_FS_WKUP_IRQHandler
+        PUBWEAK OTG_HS_EP1_IN_IRQHandler
+        PUBWEAK OTG_HS_EP1_OUT_IRQHandler
+        PUBWEAK OTG_HS_IRQHandler
+        PUBWEAK OTG_HS_WKUP_IRQHandler
+        PUBWEAK PVD_IRQHandler
+        PUBWEAK QUADSPI_IRQHandler
+        PUBWEAK RCC_IRQHandler
+        PUBWEAK RNG_IRQHandler
+        PUBWEAK RTC_Alarm_IRQHandler
+        PUBWEAK RTC_WKUP_IRQHandler
+        PUBWEAK SAI1_IRQHandler
+        PUBWEAK SAI2_IRQHandler
+        PUBWEAK SDMMC1_IRQHandler
+        PUBWEAK SPDIF_RX_IRQHandler
+        PUBWEAK SPI1_IRQHandler
+        PUBWEAK SPI2_IRQHandler
+        PUBWEAK SPI3_IRQHandler
+        PUBWEAK SPI4_IRQHandler
+        PUBWEAK SPI5_IRQHandler
+        PUBWEAK SPI6_IRQHandler
+        PUBWEAK TAMP_STAMP_IRQHandler
+        PUBWEAK TIM1_BRK_TIM9_IRQHandler
+        PUBWEAK TIM1_CC_IRQHandler
+        PUBWEAK TIM1_TRG_COM_TIM11_IRQHandler
+        PUBWEAK TIM1_UP_TIM10_IRQHandler
+        PUBWEAK TIM2_IRQHandler
+        PUBWEAK TIM3_IRQHandler
+        PUBWEAK TIM4_IRQHandler
+        PUBWEAK TIM5_IRQHandler
+        PUBWEAK TIM6_DAC_IRQHandler
+        PUBWEAK TIM7_IRQHandler
+        PUBWEAK TIM8_BRK_TIM12_IRQHandler
+        PUBWEAK TIM8_CC_IRQHandler
+        PUBWEAK TIM8_TRG_COM_TIM14_IRQHandler
+        PUBWEAK TIM8_UP_TIM13_IRQHandler
+        PUBWEAK UART4_IRQHandler
+        PUBWEAK UART5_IRQHandler
+        PUBWEAK UART7_IRQHandler
+        PUBWEAK UART8_IRQHandler
+        PUBWEAK USART1_IRQHandler
+        PUBWEAK USART2_IRQHandler
+        PUBWEAK USART3_IRQHandler
+        PUBWEAK USART6_IRQHandler
+        PUBWEAK WWDG_IRQHandler
 
 
         SECTION `.text`:CODE:NOROOT(1)
@@ -306,29 +300,7 @@ TIM2_IRQHandler:
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 TIM3_IRQHandler:
-        PUSH     {R4,LR}
-        MOVS     R4,#+0
-        MRS      R0,PRIMASK
-        MOVS     R4,R0
-        CPSID    I
-        BL       CPU_IntDisMeasStart
-        BL       OSIntEnter
-        BL       CPU_IntDisMeasStop
-        MSR      PRIMASK,R4
-        MVNS     R0,#+1
-        LDR.N    R1,??DataTable0
-        LDR      R1,[R1, #+0]
-        STR      R0,[R1, #+16]
-        MOVS     R0,#+0
-        BL       bsp_LedToggle
-        BL       OSIntExit
-        POP      {R4,PC}          ;; return
-
-        SECTION `.text`:CODE:NOROOT(2)
-        SECTION_TYPE SHT_PROGBITS, 0
-        DATA
-??DataTable0:
-        DC32     TimHandle
+        BX       LR               ;; return
 
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
@@ -683,9 +655,9 @@ SPDIF_RX_IRQHandler:
 
         END
 // 
-// 248 bytes in section .text
+// 196 bytes in section .text
 // 
-// 248 bytes of CODE memory
+// 196 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none

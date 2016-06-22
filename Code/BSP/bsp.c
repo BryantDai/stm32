@@ -3,7 +3,7 @@
  * Description        : Driver function file 
  * Experiment platform: Stm32f746-discovery-board
  * Cpu                : Stm32f746NGH
- * Library Version    : ST 1.0
+ * Library Version    : ST 1.3
  * Author             : Bryant
  * Create Date        : Feb-27-2016
 *************************************************************************************************************************/
@@ -11,9 +11,6 @@
 /* Includes ------------------------------------------------------------------------------------------------------------*/
 #include  <os.h>
 #include  <bsp.h>
-#include "bsp_led.h"
-#include "bsp_timer.h"
-#include "bsp_button.h"
 #include  <stm32f7xx_hal.h>
 
 
@@ -23,6 +20,7 @@
 /* Private macro -------------------------------------------------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------------------------------------------------*/
+static void bsp_MPUConfig(void);
 static void bsp_SystemClockConfig(void);
 
 /* Private functions ---------------------------------------------------------------------------------------------------*/
@@ -43,18 +41,23 @@ static void bsp_SystemClockConfig(void);
 *************************************************************************************************************************/
 void bsp_Init (void)
 {
-    /* Config system clock                                                                                              */
-    bsp_SystemClockConfig();
+  /* Configure the MPU attributes as Write Through                                                                    */
+  bsp_MPUConfig();
+  
+  /* Config system clock                                                                                              */
+  bsp_SystemClockConfig();
 
-    /* Initialize led in this system                                                                                    */
-    bsp_LedInit(); 
-    
-    /* Initialize buttons in this system                                                                                */
-    bsp_ButtonInit();
+  /* Initialize led in this system                                                                                    */
+  bsp_LedInit(); 
+  
+  /* Initialize buttons in this system                                                                                */
+  bsp_ButtonInit();
 
-    /* Initialize timer in this system                                                                                  */
-    bsp_TimerInit();
-    
+  /* Initialize timer in this system                                                                                  */
+  bsp_TimerInit();
+
+  /* Initialize usart in this system                                                                                  */
+  bsp_UsartInit(USARTx_BAUDRATE_9600);
 }
 
 
@@ -85,45 +88,45 @@ static void bsp_SystemClockConfig(void)
    * Main regulator output voltage  = Scale1 mode
    * Flash Latency(WS)              = 7
   */
-    RCC_OscInitTypeDef  RCC_OscInitStruct;
-    RCC_ClkInitTypeDef  RCC_ClkInitStruct;
-                                                                /* PLLCLK    = (HSE / PLLM) * PLLN      = 432MHz.       */
-                                                                /* SYSCLK    = PLLCLK / PLLP            = 216MHz.       */
-    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-    RCC_OscInitStruct.HSEState       = RCC_HSE_ON;
-    RCC_OscInitStruct.HSIState       = RCC_HSI_OFF;
-    RCC_OscInitStruct.PLL.PLLState   = RCC_PLL_ON;
-    RCC_OscInitStruct.PLL.PLLSource  = RCC_PLLSOURCE_HSE;
-    RCC_OscInitStruct.PLL.PLLM       = 25u;
-    RCC_OscInitStruct.PLL.PLLN       = 432u;
-    RCC_OscInitStruct.PLL.PLLP       = RCC_PLLP_DIV2;
-    RCC_OscInitStruct.PLL.PLLQ       = 9u;
-    HAL_RCC_OscConfig(&RCC_OscInitStruct);
+  RCC_OscInitTypeDef  RCC_OscInitStruct;
+  RCC_ClkInitTypeDef  RCC_ClkInitStruct;
+                                                              /* PLLCLK    = (HSE / PLLM) * PLLN      = 432MHz.       */
+                                                              /* SYSCLK    = PLLCLK / PLLP            = 216MHz.       */
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState       = RCC_HSE_ON;
+  RCC_OscInitStruct.HSIState       = RCC_HSI_OFF;
+  RCC_OscInitStruct.PLL.PLLState   = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource  = RCC_PLLSOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLM       = 25u;
+  RCC_OscInitStruct.PLL.PLLN       = 432u;
+  RCC_OscInitStruct.PLL.PLLP       = RCC_PLLP_DIV2;
+  RCC_OscInitStruct.PLL.PLLQ       = 9u;
+  HAL_RCC_OscConfig(&RCC_OscInitStruct);
 
-    /*
-     * 1 : Scale 3 for f(HCLK) <= 144MHz
-     * 2 : Scale 2 for 144MHz < f(HCLK) <= 168MHz
-     * 3 : Scale 1 for 168MHz < f(HCLK) <= 216MHz. The over-driver is only 'ON' at 216MHz   
-    */
-    /* The maximum value of f(HCLK) is 180MHz, it can be extended to 216MHz by activating the over-drive mode 
-       (in Power scale1)(P101 datasheet)                                                                                */
-    if(HAL_PWREx_EnableOverDrive() != HAL_OK)    /* Activate the OverDrive to reach the 216 Mhz Freq                    */
-    {                
-        while (DEF_TRUE)
-        {
-            ;
-        }
-    }
+  /*
+   * 1 : Scale 3 for f(HCLK) <= 144MHz
+   * 2 : Scale 2 for 144MHz < f(HCLK) <= 168MHz
+   * 3 : Scale 1 for 168MHz < f(HCLK) <= 216MHz. The over-driver is only 'ON' at 216MHz   
+  */
+  /* The maximum value of f(HCLK) is 180MHz, it can be extended to 216MHz by activating the over-drive mode 
+     (in Power scale1)(P101 datasheet)                                                                                */
+  if(HAL_PWREx_EnableOverDrive() != HAL_OK)    /* Activate the OverDrive to reach the 216 Mhz Freq                    */
+  {                
+      while (DEF_TRUE)
+      {
+          ;
+      }
+  }
 
-    RCC_ClkInitStruct.ClockType      = RCC_CLOCKTYPE_SYSCLK |
-                                       RCC_CLOCKTYPE_HCLK   |
-                                       RCC_CLOCKTYPE_PCLK1  |
-                                       RCC_CLOCKTYPE_PCLK2;
-    RCC_ClkInitStruct.SYSCLKSource   = RCC_SYSCLKSOURCE_PLLCLK;
-    RCC_ClkInitStruct.AHBCLKDivider  = RCC_SYSCLK_DIV1;         /* HCLK    = AHBCLK  = PLL / AHBPRES(1) = 216MHz.       */
-    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;           /* APB1CLK = AHBCLK  / APB1DIV(4)       = 54MHz (max).  */
-    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;           /* APB2CLK = AHBCLK  / APB2DIV(2)       = 108MHz.       */
-    HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_7);   
+  RCC_ClkInitStruct.ClockType      = RCC_CLOCKTYPE_SYSCLK |
+                                     RCC_CLOCKTYPE_HCLK   |
+                                     RCC_CLOCKTYPE_PCLK1  |
+                                     RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.SYSCLKSource   = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.AHBCLKDivider  = RCC_SYSCLK_DIV1;         /* HCLK    = AHBCLK  = PLL / AHBPRES(1) = 216MHz.       */
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;           /* APB1CLK = AHBCLK  / APB1DIV(4)       = 54MHz (max).  */
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;           /* APB2CLK = AHBCLK  / APB2DIV(2)       = 108MHz.       */
+  HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_7);   
 }
 
 
@@ -139,11 +142,10 @@ static void bsp_SystemClockConfig(void)
 *************************************************************************************************************************/
 CPU_INT32U  bsp_CpuClkFreq (void)
 {
-    CPU_INT32U  hclk_freq;
+  CPU_INT32U  hclk_freq;
 
-
-    hclk_freq = HAL_RCC_GetHCLKFreq();
-    return (hclk_freq);
+  hclk_freq = HAL_RCC_GetHCLKFreq();
+  return (hclk_freq);
 }
 
 
@@ -162,13 +164,13 @@ CPU_INT32U  bsp_CpuClkFreq (void)
 *************************************************************************************************************************/
 HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 {
-    HAL_NVIC_SetPriorityGrouping(0);
+  HAL_NVIC_SetPriorityGrouping(0);
 
-    if (OSRunning > 0u) {                                       /*Check if multi-tasking has started.                   */
-        bsp_TickInit();
-    }
+  if (OSRunning > 0u) {                                       /*Check if multi-tasking has started.                   */
+      bsp_TickInit();
+  }
 
-    return (HAL_OK);
+  return (HAL_OK);
 }
 
 
@@ -183,23 +185,62 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 *************************************************************************************************************************/
 void bsp_TickInit (void)
 {
-    CPU_INT32U  cpu_clk_freq;
-    CPU_INT32U  cnts;
+  CPU_INT32U  cpu_clk_freq;
+  CPU_INT32U  cnts;
 
-    cpu_clk_freq = bsp_CpuClkFreq();                           /* Determine SysTick reference freq.                    */
+  cpu_clk_freq = bsp_CpuClkFreq();                           /* Determine SysTick reference freq.                    */
 
 #if (OS_VERSION >= 30000u)
-    cnts  = cpu_clk_freq / (CPU_INT32U)OSCfg_TickRate_Hz;       /* Determine nbr SysTick increments.                    */
+  cnts  = cpu_clk_freq / (CPU_INT32U)OSCfg_TickRate_Hz;       /* Determine nbr SysTick increments.                    */
 #else
-    cnts  = cpu_clk_freq / (CPU_INT32U)OS_TICKS_PER_SEC;        /* Determine nbr SysTick increments.                    */
+  cnts  = cpu_clk_freq / (CPU_INT32U)OS_TICKS_PER_SEC;        /* Determine nbr SysTick increments.                    */
 #endif
 
-    OS_CPU_SysTickInit(cnts);                                   /* Init uC/OS periodic time src (SysTick).              */
+  OS_CPU_SysTickInit(cnts);                                   /* Init uC/OS periodic time src (SysTick).              */
 }
 
 
 
+/************************************************************************************************************************
+ * Function Name   : bsp_MPUConfig
+ * Description     : Configure the MPU attributes as Write Through for SRAM1/2.
+ * Input Variable  : None
+ * Return Variable : The CPU clock frequency, in Hz.
+ * Author          : Bryant
+ * Create Date     : May-2-2016
+ * Call            : Inside
+ * Notice          : 1 : The Base Address is 0x20010000 since this memory interface is the AXI. The Region Size is 256KB, 
+ *                   it is related to SRAM1 and SRAM2  memory size.
+ *                   2 : Configure the MPU attributes as Write Through for SRAM1/2 to prevent data consistency between cache and 
+ *                   second level memory
+*************************************************************************************************************************/
+static void bsp_MPUConfig(void)
+{
+  MPU_Region_InitTypeDef MPU_InitStruct;
+
+  /* Disable the MPU before reconfig it                                                                               */
+  HAL_MPU_Disable();
+
+  /* Configure the MPU attributes as WT for SRAM                                                                      */
+  MPU_InitStruct.Enable = MPU_REGION_ENABLE;
+  MPU_InitStruct.BaseAddress = 0x20010000;
+  MPU_InitStruct.Size = MPU_REGION_SIZE_256KB;
+  MPU_InitStruct.AccessPermission = MPU_REGION_FULL_ACCESS;
+  MPU_InitStruct.IsBufferable = MPU_ACCESS_NOT_BUFFERABLE;
+  MPU_InitStruct.IsCacheable = MPU_ACCESS_CACHEABLE;
+  MPU_InitStruct.IsShareable = MPU_ACCESS_NOT_SHAREABLE;
+  MPU_InitStruct.Number = MPU_REGION_NUMBER0;
+  MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL0;
+  MPU_InitStruct.SubRegionDisable = 0x00;
+  MPU_InitStruct.DisableExec = MPU_INSTRUCTION_ACCESS_ENABLE;
+
+  HAL_MPU_ConfigRegion(&MPU_InitStruct);
+
+  /* Enable the MPU                                                                                                   */
+  HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);    
+}
 
 
 /*******************************************************END OF FILE******************************************************/
+
 

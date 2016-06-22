@@ -2124,7 +2124,7 @@
       <name>$PROJ_DIR$\..\User\stm32f7xx_hal_conf.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\STM32F7xx_HAL_Driver\Src\stm32f7xx_it.c</name>
+      <name>$PROJ_DIR$\..\User\stm32f7xx_it.c</name>
     </file>
   </group>
   <group>
@@ -2158,6 +2158,9 @@
     </file>
     <file>
       <name>$PROJ_DIR$\..\BSP\timer\bsp_timer.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\BSP\usart\bsp_usart.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\BSP\cpu_bsp.c</name>
@@ -2223,6 +2226,12 @@
             <name>$PROJ_DIR$\..\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_def.h</name>
           </file>
           <file>
+            <name>$PROJ_DIR$\..\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_dma.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_dma_ex.h</name>
+          </file>
+          <file>
             <name>$PROJ_DIR$\..\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_flash.h</name>
           </file>
           <file>
@@ -2252,6 +2261,18 @@
           <file>
             <name>$PROJ_DIR$\..\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_tim_ex.h</name>
           </file>
+          <file>
+            <name>$PROJ_DIR$\..\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_uart.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_uart_ex.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_usart.h</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_usart_ex.h</name>
+          </file>
         </group>
         <group>
           <name>Src</name>
@@ -2260,6 +2281,12 @@
           </file>
           <file>
             <name>$PROJ_DIR$\..\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_cortex.c</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma.c</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma_ex.c</name>
           </file>
           <file>
             <name>$PROJ_DIR$\..\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_flash.c</name>
@@ -2290,6 +2317,12 @@
           </file>
           <file>
             <name>$PROJ_DIR$\..\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim_ex.c</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_uart.c</name>
+          </file>
+          <file>
+            <name>$PROJ_DIR$\..\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_usart.c</name>
           </file>
         </group>
       </group>

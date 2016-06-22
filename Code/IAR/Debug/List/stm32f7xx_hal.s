@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.1.10123/W32 for ARM      19/Mar/2016  22:03:48
+// IAR ANSI C/C++ Compiler V7.50.1.10123/W32 for ARM      09/Jun/2016  21:52:48
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -9,7 +9,7 @@
 //        E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal.c
 //    Command line =  
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal.c"
-//        -D USE_HAL_DRIVER -D STM32F746xx -D NDEBUG -lb
+//        -D USE_HAL_DRIVER -D STM32F746xx -lb
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\Debug\List" -o
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\Debug\Obj" --no_cse
 //        --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering
@@ -21,6 +21,7 @@
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\led\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\timer\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\button\" -I
+//        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\usart\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\CMSIS\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\IAR\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\CMSIS\Device\ST\STM32F7xx\Include\"
@@ -90,10 +91,10 @@ uwTick:
         THUMB
 HAL_Init:
         PUSH     {R7,LR}
-        LDR.N    R0,??DataTable17  ;; 0x40023c00
+        LDR.N    R0,??DataTable18  ;; 0x40023c00
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x200
-        LDR.N    R1,??DataTable17  ;; 0x40023c00
+        LDR.N    R1,??DataTable18  ;; 0x40023c00
         STR      R0,[R1, #+0]
         MOVS     R0,#+3
         BL       HAL_NVIC_SetPriorityGrouping
@@ -108,34 +109,34 @@ HAL_Init:
 HAL_DeInit:
         PUSH     {R7,LR}
         MOVS     R0,#-1
-        LDR.N    R1,??DataTable17_1  ;; 0x40023820
+        LDR.N    R1,??DataTable18_1  ;; 0x40023820
         STR      R0,[R1, #+0]
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable17_1  ;; 0x40023820
+        LDR.N    R1,??DataTable18_1  ;; 0x40023820
         STR      R0,[R1, #+0]
         MOVS     R0,#-1
-        LDR.N    R1,??DataTable17_2  ;; 0x40023824
+        LDR.N    R1,??DataTable18_2  ;; 0x40023824
         STR      R0,[R1, #+0]
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable17_2  ;; 0x40023824
+        LDR.N    R1,??DataTable18_2  ;; 0x40023824
         STR      R0,[R1, #+0]
         MOVS     R0,#-1
-        LDR.N    R1,??DataTable17_3  ;; 0x40023810
+        LDR.N    R1,??DataTable18_3  ;; 0x40023810
         STR      R0,[R1, #+0]
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable17_3  ;; 0x40023810
+        LDR.N    R1,??DataTable18_3  ;; 0x40023810
         STR      R0,[R1, #+0]
         MOVS     R0,#-1
-        LDR.N    R1,??DataTable17_4  ;; 0x40023814
+        LDR.N    R1,??DataTable18_4  ;; 0x40023814
         STR      R0,[R1, #+0]
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable17_4  ;; 0x40023814
+        LDR.N    R1,??DataTable18_4  ;; 0x40023814
         STR      R0,[R1, #+0]
         MOVS     R0,#-1
-        LDR.N    R1,??DataTable17_5  ;; 0x40023818
+        LDR.N    R1,??DataTable18_5  ;; 0x40023818
         STR      R0,[R1, #+0]
         MOVS     R0,#+0
-        LDR.N    R1,??DataTable17_5  ;; 0x40023818
+        LDR.N    R1,??DataTable18_5  ;; 0x40023818
         STR      R0,[R1, #+0]
         BL       HAL_MspDeInit
         MOVS     R0,#+0
@@ -144,11 +145,21 @@ HAL_DeInit:
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_MspInit:
+        SUB      SP,SP,#+4
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
+        LDR      R0,[SP, #+0]
+        ADD      SP,SP,#+4
         BX       LR               ;; return
 
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_MspDeInit:
+        SUB      SP,SP,#+4
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
+        LDR      R0,[SP, #+0]
+        ADD      SP,SP,#+4
         BX       LR               ;; return
 
         SECTION `.text`:CODE:NOROOT(1)
@@ -170,17 +181,17 @@ HAL_InitTick:
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_IncTick:
-        LDR.N    R0,??DataTable17_6
+        LDR.N    R0,??DataTable18_6
         LDR      R0,[R0, #+0]
         ADDS     R0,R0,#+1
-        LDR.N    R1,??DataTable17_6
+        LDR.N    R1,??DataTable18_6
         STR      R0,[R1, #+0]
         BX       LR               ;; return
 
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_GetTick:
-        LDR.N    R0,??DataTable17_6
+        LDR.N    R0,??DataTable18_6
         LDR      R0,[R0, #+0]
         BX       LR               ;; return
 
@@ -203,33 +214,33 @@ HAL_Delay:
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_SuspendTick:
-        LDR.N    R0,??DataTable17_7  ;; 0xe000e010
+        LDR.N    R0,??DataTable18_7  ;; 0xe000e010
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x2
-        LDR.N    R1,??DataTable17_7  ;; 0xe000e010
+        LDR.N    R1,??DataTable18_7  ;; 0xe000e010
         STR      R0,[R1, #+0]
         BX       LR               ;; return
 
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_ResumeTick:
-        LDR.N    R0,??DataTable17_7  ;; 0xe000e010
+        LDR.N    R0,??DataTable18_7  ;; 0xe000e010
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x2
-        LDR.N    R1,??DataTable17_7  ;; 0xe000e010
+        LDR.N    R1,??DataTable18_7  ;; 0xe000e010
         STR      R0,[R1, #+0]
         BX       LR               ;; return
 
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_GetHalVersion:
-        MOVS     R0,#+16777216
+        LDR.N    R0,??DataTable18_8  ;; 0x1000300
         BX       LR               ;; return
 
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_GetREVID:
-        LDR.N    R0,??DataTable17_8  ;; 0xe0042000
+        LDR.N    R0,??DataTable18_9  ;; 0xe0042000
         LDR      R0,[R0, #+0]
         LSRS     R0,R0,#+16
         BX       LR               ;; return
@@ -237,7 +248,7 @@ HAL_GetREVID:
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_GetDEVID:
-        LDR.N    R0,??DataTable17_8  ;; 0xe0042000
+        LDR.N    R0,??DataTable18_9  ;; 0xe0042000
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+20       ;; ZeroExtS R0,R0,#+20,#+20
         LSRS     R0,R0,#+20
@@ -246,175 +257,181 @@ HAL_GetDEVID:
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_DBGMCU_EnableDBGSleepMode:
-        LDR.N    R0,??DataTable17_9  ;; 0xe0042004
+        LDR.N    R0,??DataTable18_10  ;; 0xe0042004
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x1
-        LDR.N    R1,??DataTable17_9  ;; 0xe0042004
+        LDR.N    R1,??DataTable18_10  ;; 0xe0042004
         STR      R0,[R1, #+0]
         BX       LR               ;; return
 
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_DBGMCU_DisableDBGSleepMode:
-        LDR.N    R0,??DataTable17_9  ;; 0xe0042004
+        LDR.N    R0,??DataTable18_10  ;; 0xe0042004
         LDR      R0,[R0, #+0]
         LSRS     R0,R0,#+1
         LSLS     R0,R0,#+1
-        LDR.N    R1,??DataTable17_9  ;; 0xe0042004
+        LDR.N    R1,??DataTable18_10  ;; 0xe0042004
         STR      R0,[R1, #+0]
         BX       LR               ;; return
 
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_DBGMCU_EnableDBGStopMode:
-        LDR.N    R0,??DataTable17_9  ;; 0xe0042004
+        LDR.N    R0,??DataTable18_10  ;; 0xe0042004
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x2
-        LDR.N    R1,??DataTable17_9  ;; 0xe0042004
+        LDR.N    R1,??DataTable18_10  ;; 0xe0042004
         STR      R0,[R1, #+0]
         BX       LR               ;; return
 
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_DBGMCU_DisableDBGStopMode:
-        LDR.N    R0,??DataTable17_9  ;; 0xe0042004
+        LDR.N    R0,??DataTable18_10  ;; 0xe0042004
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x2
-        LDR.N    R1,??DataTable17_9  ;; 0xe0042004
+        LDR.N    R1,??DataTable18_10  ;; 0xe0042004
         STR      R0,[R1, #+0]
         BX       LR               ;; return
 
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_DBGMCU_EnableDBGStandbyMode:
-        LDR.N    R0,??DataTable17_9  ;; 0xe0042004
+        LDR.N    R0,??DataTable18_10  ;; 0xe0042004
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x4
-        LDR.N    R1,??DataTable17_9  ;; 0xe0042004
+        LDR.N    R1,??DataTable18_10  ;; 0xe0042004
         STR      R0,[R1, #+0]
         BX       LR               ;; return
 
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_DBGMCU_DisableDBGStandbyMode:
-        LDR.N    R0,??DataTable17_9  ;; 0xe0042004
+        LDR.N    R0,??DataTable18_10  ;; 0xe0042004
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x4
-        LDR.N    R1,??DataTable17_9  ;; 0xe0042004
+        LDR.N    R1,??DataTable18_10  ;; 0xe0042004
         STR      R0,[R1, #+0]
         BX       LR               ;; return
 
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_EnableCompensationCell:
-        LDR.N    R0,??DataTable17_10  ;; 0x40013820
+        LDR.N    R0,??DataTable18_11  ;; 0x40013820
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x1
-        LDR.N    R1,??DataTable17_10  ;; 0x40013820
+        LDR.N    R1,??DataTable18_11  ;; 0x40013820
         STR      R0,[R1, #+0]
         BX       LR               ;; return
 
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_DisableCompensationCell:
-        LDR.N    R0,??DataTable17_10  ;; 0x40013820
+        LDR.N    R0,??DataTable18_11  ;; 0x40013820
         LDR      R0,[R0, #+0]
         LSRS     R0,R0,#+1
         LSLS     R0,R0,#+1
-        LDR.N    R1,??DataTable17_10  ;; 0x40013820
+        LDR.N    R1,??DataTable18_11  ;; 0x40013820
         STR      R0,[R1, #+0]
         BX       LR               ;; return
 
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_EnableFMCMemorySwapping:
-        LDR.N    R0,??DataTable17_11  ;; 0x40013800
+        LDR.N    R0,??DataTable18_12  ;; 0x40013800
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x400
-        LDR.N    R1,??DataTable17_11  ;; 0x40013800
+        LDR.N    R1,??DataTable18_12  ;; 0x40013800
         STR      R0,[R1, #+0]
         BX       LR               ;; return
 
         SECTION `.text`:CODE:NOROOT(1)
         THUMB
 HAL_DisableFMCMemorySwapping:
-        LDR.N    R0,??DataTable17_11  ;; 0x40013800
+        LDR.N    R0,??DataTable18_12  ;; 0x40013800
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0xC00
-        LDR.N    R1,??DataTable17_11  ;; 0x40013800
+        LDR.N    R1,??DataTable18_12  ;; 0x40013800
         STR      R0,[R1, #+0]
         BX       LR               ;; return
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17:
+??DataTable18:
         DC32     0x40023c00
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17_1:
+??DataTable18_1:
         DC32     0x40023820
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17_2:
+??DataTable18_2:
         DC32     0x40023824
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17_3:
+??DataTable18_3:
         DC32     0x40023810
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17_4:
+??DataTable18_4:
         DC32     0x40023814
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17_5:
+??DataTable18_5:
         DC32     0x40023818
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17_6:
+??DataTable18_6:
         DC32     uwTick
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17_7:
+??DataTable18_7:
         DC32     0xe000e010
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17_8:
+??DataTable18_8:
+        DC32     0x1000300
+
+        SECTION `.text`:CODE:NOROOT(2)
+        SECTION_TYPE SHT_PROGBITS, 0
+        DATA
+??DataTable18_9:
         DC32     0xe0042000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17_9:
+??DataTable18_10:
         DC32     0xe0042004
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17_10:
+??DataTable18_11:
         DC32     0x40013820
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
-??DataTable17_11:
+??DataTable18_12:
         DC32     0x40013800
 
         SECTION `.iar_vfe_header`:DATA:NOALLOC:NOROOT(2)
@@ -431,9 +448,9 @@ HAL_DisableFMCMemorySwapping:
         END
 // 
 //   4 bytes in section .bss
-// 438 bytes in section .text
+// 460 bytes in section .text
 // 
-// 438 bytes of CODE memory
+// 460 bytes of CODE memory
 //   4 bytes of DATA memory
 //
 //Errors: none

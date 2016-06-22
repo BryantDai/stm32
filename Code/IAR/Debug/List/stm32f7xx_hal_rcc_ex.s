@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR ANSI C/C++ Compiler V7.50.1.10123/W32 for ARM      19/Mar/2016  22:03:52
+// IAR ANSI C/C++ Compiler V7.50.1.10123/W32 for ARM      09/Jun/2016  21:52:53
 // Copyright 1999-2015 IAR Systems AB.
 //
 //    Cpu mode     =  thumb
@@ -9,7 +9,7 @@
 //        E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_rcc_ex.c
 //    Command line =  
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_rcc_ex.c"
-//        -D USE_HAL_DRIVER -D STM32F746xx -D NDEBUG -lb
+//        -D USE_HAL_DRIVER -D STM32F746xx -lb
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\Debug\List" -o
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\Debug\Obj" --no_cse
 //        --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering
@@ -21,6 +21,7 @@
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\led\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\timer\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\button\" -I
+//        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\usart\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\CMSIS\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\BSP\IAR\" -I
 //        "E:\Bryant\STM32F746-Discovery(uCOS-III)\Code\IAR\..\CMSIS\Device\ST\STM32F7xx\Include\"
@@ -141,6 +142,8 @@ HAL_RCCEx_PeriphCLKConfig:
         LDRB     R0,[R4, #+0]
         LSLS     R0,R0,#+26
         BPL.W    ??HAL_RCCEx_PeriphCLKConfig_6
+        MOVS     R0,#+0
+        STR      R0,[SP, #+0]
         LDR.W    R0,??DataTable2_2  ;; 0x40023840
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x10000000
@@ -176,7 +179,7 @@ HAL_RCCEx_PeriphCLKConfig:
         LDR      R1,[R4, #+48]
         ANDS     R1,R1,#0x300
         CMP      R0,R1
-        BEQ.N    ??HAL_RCCEx_PeriphCLKConfig_10
+        BEQ.N    ??HAL_RCCEx_PeriphCLKConfig_6
         LDR.W    R0,??DataTable2_4  ;; 0x40023870
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x300
@@ -193,29 +196,27 @@ HAL_RCCEx_PeriphCLKConfig:
         STR      R0,[R1, #+0]
         LDR.W    R0,??DataTable2_4  ;; 0x40023870
         STR      R6,[R0, #+0]
-??HAL_RCCEx_PeriphCLKConfig_10:
-        LDR      R0,[R4, #+48]
-        CMP      R0,#+256
-        BNE.N    ??HAL_RCCEx_PeriphCLKConfig_11
+        LSLS     R0,R6,#+30
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_10
         BL       HAL_GetTick
         MOVS     R5,R0
-??HAL_RCCEx_PeriphCLKConfig_12:
+??HAL_RCCEx_PeriphCLKConfig_11:
         LDR.W    R0,??DataTable2_4  ;; 0x40023870
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+30
-        BMI.N    ??HAL_RCCEx_PeriphCLKConfig_11
+        BMI.N    ??HAL_RCCEx_PeriphCLKConfig_10
         BL       HAL_GetTick
         SUBS     R0,R0,R5
         MOVW     R1,#+5001
         CMP      R0,R1
-        BCC.N    ??HAL_RCCEx_PeriphCLKConfig_12
+        BCC.N    ??HAL_RCCEx_PeriphCLKConfig_11
         MOVS     R0,#+3
         B.N      ??HAL_RCCEx_PeriphCLKConfig_9
-??HAL_RCCEx_PeriphCLKConfig_11:
+??HAL_RCCEx_PeriphCLKConfig_10:
         LDR      R0,[R4, #+48]
         ANDS     R0,R0,#0x300
         CMP      R0,#+768
-        BNE.N    ??HAL_RCCEx_PeriphCLKConfig_13
+        BNE.N    ??HAL_RCCEx_PeriphCLKConfig_12
         LDR.W    R0,??DataTable2  ;; 0x40023808
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x1F0000
@@ -225,14 +226,14 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2  ;; 0x40023808
         STR      R0,[R1, #+0]
-        B.N      ??HAL_RCCEx_PeriphCLKConfig_14
-??HAL_RCCEx_PeriphCLKConfig_13:
+        B.N      ??HAL_RCCEx_PeriphCLKConfig_13
+??HAL_RCCEx_PeriphCLKConfig_12:
         LDR.W    R0,??DataTable2  ;; 0x40023808
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x1F0000
         LDR.W    R1,??DataTable2  ;; 0x40023808
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_14:
+??HAL_RCCEx_PeriphCLKConfig_13:
         LDR.W    R0,??DataTable2_4  ;; 0x40023870
         LDR      R0,[R0, #+0]
         LDR      R1,[R4, #+48]
@@ -244,7 +245,7 @@ HAL_RCCEx_PeriphCLKConfig:
 ??HAL_RCCEx_PeriphCLKConfig_6:
         LDRB     R0,[R4, #+0]
         LSLS     R0,R0,#+27
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_15
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_14
         LDR.W    R0,??DataTable2_1  ;; 0x4002388c
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x1000000
@@ -256,10 +257,10 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_1  ;; 0x4002388c
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_15:
+??HAL_RCCEx_PeriphCLKConfig_14:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+17
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_16
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_15
         LDR.W    R0,??DataTable2_6  ;; 0x40023890
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x30000
@@ -267,10 +268,10 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_6  ;; 0x40023890
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_16:
+??HAL_RCCEx_PeriphCLKConfig_15:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+16
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_17
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_16
         LDR.W    R0,??DataTable2_6  ;; 0x40023890
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0xC0000
@@ -278,10 +279,10 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_6  ;; 0x40023890
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_17:
+??HAL_RCCEx_PeriphCLKConfig_16:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+15
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_18
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_17
         LDR.W    R0,??DataTable2_6  ;; 0x40023890
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x300000
@@ -289,10 +290,10 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_6  ;; 0x40023890
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_18:
+??HAL_RCCEx_PeriphCLKConfig_17:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+14
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_19
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_18
         LDR.W    R0,??DataTable2_6  ;; 0x40023890
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0xC00000
@@ -300,10 +301,10 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_6  ;; 0x40023890
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_19:
+??HAL_RCCEx_PeriphCLKConfig_18:
         LDRB     R0,[R4, #+0]
         LSLS     R0,R0,#+25
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_20
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_19
         LDR.W    R0,??DataTable2_6  ;; 0x40023890
         LDR      R0,[R0, #+0]
         LSRS     R0,R0,#+2
@@ -312,10 +313,10 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_6  ;; 0x40023890
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_20:
+??HAL_RCCEx_PeriphCLKConfig_19:
         LDRB     R0,[R4, #+0]
         LSLS     R0,R0,#+24
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_21
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_20
         LDR.W    R0,??DataTable2_6  ;; 0x40023890
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0xC
@@ -323,10 +324,10 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_6  ;; 0x40023890
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_21:
+??HAL_RCCEx_PeriphCLKConfig_20:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+23
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_22
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_21
         LDR.W    R0,??DataTable2_6  ;; 0x40023890
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x30
@@ -334,10 +335,10 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_6  ;; 0x40023890
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_22:
+??HAL_RCCEx_PeriphCLKConfig_21:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+22
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_23
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_22
         LDR.W    R0,??DataTable2_6  ;; 0x40023890
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0xC0
@@ -345,10 +346,10 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_6  ;; 0x40023890
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_23:
+??HAL_RCCEx_PeriphCLKConfig_22:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+21
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_24
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_23
         LDR.W    R0,??DataTable2_6  ;; 0x40023890
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x300
@@ -356,10 +357,10 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_6  ;; 0x40023890
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_24:
+??HAL_RCCEx_PeriphCLKConfig_23:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+20
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_25
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_24
         LDR.W    R0,??DataTable2_6  ;; 0x40023890
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0xC00
@@ -367,10 +368,10 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_6  ;; 0x40023890
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_25:
+??HAL_RCCEx_PeriphCLKConfig_24:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+19
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_26
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_25
         LDR.W    R0,??DataTable2_6  ;; 0x40023890
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x3000
@@ -378,10 +379,10 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_6  ;; 0x40023890
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_26:
+??HAL_RCCEx_PeriphCLKConfig_25:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+18
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_27
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_26
         LDR.W    R0,??DataTable2_6  ;; 0x40023890
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0xC000
@@ -389,10 +390,10 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_6  ;; 0x40023890
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_27:
+??HAL_RCCEx_PeriphCLKConfig_26:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+9
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_28
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_27
         LDR.W    R0,??DataTable2_6  ;; 0x40023890
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x4000000
@@ -400,10 +401,10 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_6  ;; 0x40023890
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_28:
+??HAL_RCCEx_PeriphCLKConfig_27:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+10
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_29
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_28
         LDR.W    R0,??DataTable2_6  ;; 0x40023890
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x8000000
@@ -413,19 +414,19 @@ HAL_RCCEx_PeriphCLKConfig:
         STR      R0,[R1, #+0]
         LDR      R0,[R4, #+124]
         CMP      R0,#+134217728
-        BNE.N    ??HAL_RCCEx_PeriphCLKConfig_29
+        BNE.N    ??HAL_RCCEx_PeriphCLKConfig_28
+        MOVS     R0,#+1
+        MOV      R9,R0
+??HAL_RCCEx_PeriphCLKConfig_28:
+        LDRB     R0,[R4, #+0]
+        LSLS     R0,R0,#+28
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_29
         MOVS     R0,#+1
         MOV      R9,R0
 ??HAL_RCCEx_PeriphCLKConfig_29:
-        LDRB     R0,[R4, #+0]
-        LSLS     R0,R0,#+28
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_30
-        MOVS     R0,#+1
-        MOV      R9,R0
-??HAL_RCCEx_PeriphCLKConfig_30:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+13
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_31
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_30
         LDR.W    R0,??DataTable2_6  ;; 0x40023890
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x3000000
@@ -433,10 +434,10 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_6  ;; 0x40023890
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_31:
+??HAL_RCCEx_PeriphCLKConfig_30:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+8
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_32
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_31
         LDR.W    R0,??DataTable2_6  ;; 0x40023890
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x10000000
@@ -444,13 +445,13 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_6  ;; 0x40023890
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_32:
+??HAL_RCCEx_PeriphCLKConfig_31:
         CMP      R8,#+1
-        BEQ.N    ??HAL_RCCEx_PeriphCLKConfig_33
+        BEQ.N    ??HAL_RCCEx_PeriphCLKConfig_32
         LDR      R0,[R4, #+0]
         CMP      R0,#+33554432
-        BNE.W    ??HAL_RCCEx_PeriphCLKConfig_34
-??HAL_RCCEx_PeriphCLKConfig_33:
+        BNE.W    ??HAL_RCCEx_PeriphCLKConfig_33
+??HAL_RCCEx_PeriphCLKConfig_32:
         LDR.W    R0,??DataTable2_7  ;; 0x40023800
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x4000000
@@ -458,24 +459,24 @@ HAL_RCCEx_PeriphCLKConfig:
         STR      R0,[R1, #+0]
         BL       HAL_GetTick
         MOVS     R5,R0
-??HAL_RCCEx_PeriphCLKConfig_35:
+??HAL_RCCEx_PeriphCLKConfig_34:
         LDR.W    R0,??DataTable2_7  ;; 0x40023800
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+4
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_36
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_35
         BL       HAL_GetTick
         SUBS     R0,R0,R5
         CMP      R0,#+101
-        BCC.N    ??HAL_RCCEx_PeriphCLKConfig_35
+        BCC.N    ??HAL_RCCEx_PeriphCLKConfig_34
         MOVS     R0,#+3
         B.N      ??HAL_RCCEx_PeriphCLKConfig_9
-??HAL_RCCEx_PeriphCLKConfig_36:
+??HAL_RCCEx_PeriphCLKConfig_35:
         LDRB     R0,[R4, #+0]
         LSLS     R0,R0,#+31
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_37
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_36
         LDR      R0,[R4, #+52]
         CMP      R0,#+0
-        BNE.N    ??HAL_RCCEx_PeriphCLKConfig_37
+        BNE.N    ??HAL_RCCEx_PeriphCLKConfig_36
         LDR.W    R0,??DataTable2_8  ;; 0x40023884
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0x30000
@@ -490,29 +491,40 @@ HAL_RCCEx_PeriphCLKConfig:
         CLZ      R1,R1
         LSRS     R0,R0,R1
         MOVS     R7,R0
-        LDR      R0,[R4, #+4]
-        LSLS     R1,R6,#+16
-        ORRS     R0,R1,R0, LSL #+6
-        ORRS     R0,R0,R7, LSL #+24
-        LDR      R1,[R4, #+8]
-        ORRS     R0,R0,R1, LSL #+28
+        LDR.W    R0,??DataTable2_9  ;; 0x3fe0000
+        CLZ      R2,R0
+        MOV      R0,#+49152
+        CLZ      R3,R0
+        MOVS     R0,#+240
+        CLZ      R0,R0
+        MOVS     R1,#+14
+        CLZ      R1,R1
+        LDR      R12,[R4, #+4]
+        LSLS     R2,R12,R2
+        LSLS     R3,R6,R3
+        ORRS     R2,R3,R2
+        LSLS     R0,R7,R0
+        ORRS     R0,R0,R2
+        LDR      R2,[R4, #+8]
+        LSLS     R1,R2,R1
+        ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_8  ;; 0x40023884
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_37:
+??HAL_RCCEx_PeriphCLKConfig_36:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+12
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_38
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_37
         LDR      R0,[R4, #+60]
         CMP      R0,#+1048576
-        BEQ.N    ??HAL_RCCEx_PeriphCLKConfig_39
-??HAL_RCCEx_PeriphCLKConfig_38:
+        BEQ.N    ??HAL_RCCEx_PeriphCLKConfig_38
+??HAL_RCCEx_PeriphCLKConfig_37:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+11
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_40
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_39
         LDR      R0,[R4, #+64]
         CMP      R0,#+4194304
-        BNE.N    ??HAL_RCCEx_PeriphCLKConfig_40
-??HAL_RCCEx_PeriphCLKConfig_39:
+        BNE.N    ??HAL_RCCEx_PeriphCLKConfig_39
+??HAL_RCCEx_PeriphCLKConfig_38:
         LDR.W    R0,??DataTable2_8  ;; 0x40023884
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0x30000
@@ -527,12 +539,23 @@ HAL_RCCEx_PeriphCLKConfig:
         CLZ      R1,R1
         LSRS     R0,R0,R1
         MOVS     R7,R0
-        LDR      R0,[R4, #+4]
-        LSLS     R1,R6,#+16
-        ORRS     R0,R1,R0, LSL #+6
-        LDR      R1,[R4, #+12]
-        ORRS     R0,R0,R1, LSL #+24
-        ORRS     R0,R0,R7, LSL #+28
+        LDR.W    R0,??DataTable2_9  ;; 0x3fe0000
+        CLZ      R2,R0
+        MOV      R0,#+49152
+        CLZ      R3,R0
+        MOVS     R0,#+240
+        CLZ      R0,R0
+        MOVS     R1,#+14
+        CLZ      R1,R1
+        LDR      R12,[R4, #+4]
+        LSLS     R2,R12,R2
+        LSLS     R3,R6,R3
+        ORRS     R2,R3,R2
+        LDR      R3,[R4, #+12]
+        LSLS     R0,R3,R0
+        ORRS     R0,R0,R2
+        LSLS     R1,R7,R1
+        ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_8  ;; 0x40023884
         STR      R0,[R1, #+0]
         LDR.W    R0,??DataTable2_1  ;; 0x4002388c
@@ -544,10 +567,10 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_1  ;; 0x4002388c
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_40:
+??HAL_RCCEx_PeriphCLKConfig_39:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+7
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_41
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_40
         LDR.W    R0,??DataTable2_8  ;; 0x40023884
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0xF000000
@@ -562,29 +585,51 @@ HAL_RCCEx_PeriphCLKConfig:
         CLZ      R1,R1
         LSRS     R0,R0,R1
         MOVS     R7,R0
-        LDR      R0,[R4, #+4]
-        LDR      R1,[R4, #+16]
-        LSLS     R1,R1,#+16
-        ORRS     R0,R1,R0, LSL #+6
-        ORRS     R0,R0,R6, LSL #+24
-        ORRS     R0,R0,R7, LSL #+28
+        LDR.W    R0,??DataTable2_9  ;; 0x3fe0000
+        CLZ      R3,R0
+        MOV      R0,#+49152
+        CLZ      R0,R0
+        MOVS     R1,#+240
+        CLZ      R1,R1
+        MOVS     R2,#+14
+        CLZ      R2,R2
+        LDR      R12,[R4, #+4]
+        LSLS     R3,R12,R3
+        LDR      R12,[R4, #+16]
+        LSLS     R0,R12,R0
+        ORRS     R0,R0,R3
+        LSLS     R1,R6,R1
+        ORRS     R0,R1,R0
+        LSLS     R1,R7,R2
+        ORRS     R0,R1,R0
+        LDR.W    R1,??DataTable2_8  ;; 0x40023884
+        STR      R0,[R1, #+0]
+??HAL_RCCEx_PeriphCLKConfig_40:
+        LDR      R0,[R4, #+0]
+        LSLS     R0,R0,#+6
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_41
+        LDR.W    R0,??DataTable2_9  ;; 0x3fe0000
+        CLZ      R3,R0
+        MOV      R0,#+49152
+        CLZ      R0,R0
+        MOVS     R1,#+240
+        CLZ      R1,R1
+        MOVS     R2,#+14
+        CLZ      R2,R2
+        LDR      R12,[R4, #+4]
+        LSLS     R3,R12,R3
+        LDR      R12,[R4, #+16]
+        LSLS     R0,R12,R0
+        ORRS     R0,R0,R3
+        LDR      R3,[R4, #+12]
+        LSLS     R1,R3,R1
+        ORRS     R0,R1,R0
+        LDR      R1,[R4, #+8]
+        LSLS     R1,R1,R2
+        ORRS     R0,R1,R0
         LDR.W    R1,??DataTable2_8  ;; 0x40023884
         STR      R0,[R1, #+0]
 ??HAL_RCCEx_PeriphCLKConfig_41:
-        LDR      R0,[R4, #+0]
-        LSLS     R0,R0,#+6
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_42
-        LDR      R0,[R4, #+4]
-        LDR      R1,[R4, #+16]
-        LSLS     R1,R1,#+16
-        ORRS     R0,R1,R0, LSL #+6
-        LDR      R1,[R4, #+12]
-        ORRS     R0,R0,R1, LSL #+24
-        LDR      R1,[R4, #+8]
-        ORRS     R0,R0,R1, LSL #+28
-        LDR.W    R1,??DataTable2_8  ;; 0x40023884
-        STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_42:
         LDR.W    R0,??DataTable2_7  ;; 0x40023800
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x4000000
@@ -592,20 +637,20 @@ HAL_RCCEx_PeriphCLKConfig:
         STR      R0,[R1, #+0]
         BL       HAL_GetTick
         MOVS     R5,R0
-??HAL_RCCEx_PeriphCLKConfig_43:
+??HAL_RCCEx_PeriphCLKConfig_42:
         LDR.W    R0,??DataTable2_7  ;; 0x40023800
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+4
-        BMI.N    ??HAL_RCCEx_PeriphCLKConfig_34
+        BMI.N    ??HAL_RCCEx_PeriphCLKConfig_33
         BL       HAL_GetTick
         SUBS     R0,R0,R5
         CMP      R0,#+101
-        BCC.N    ??HAL_RCCEx_PeriphCLKConfig_43
+        BCC.N    ??HAL_RCCEx_PeriphCLKConfig_42
         MOVS     R0,#+3
         B.N      ??HAL_RCCEx_PeriphCLKConfig_9
-??HAL_RCCEx_PeriphCLKConfig_34:
+??HAL_RCCEx_PeriphCLKConfig_33:
         CMP      R9,#+1
-        BNE.W    ??HAL_RCCEx_PeriphCLKConfig_44
+        BNE.W    ??HAL_RCCEx_PeriphCLKConfig_43
         LDR.W    R0,??DataTable2_7  ;; 0x40023800
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x10000000
@@ -613,53 +658,64 @@ HAL_RCCEx_PeriphCLKConfig:
         STR      R0,[R1, #+0]
         BL       HAL_GetTick
         MOVS     R5,R0
-??HAL_RCCEx_PeriphCLKConfig_45:
+??HAL_RCCEx_PeriphCLKConfig_44:
         LDR.W    R0,??DataTable2_7  ;; 0x40023800
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+2
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_46
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_45
         BL       HAL_GetTick
         SUBS     R0,R0,R5
         CMP      R0,#+101
-        BCC.N    ??HAL_RCCEx_PeriphCLKConfig_45
+        BCC.N    ??HAL_RCCEx_PeriphCLKConfig_44
         MOVS     R0,#+3
         B.N      ??HAL_RCCEx_PeriphCLKConfig_9
-??HAL_RCCEx_PeriphCLKConfig_46:
+??HAL_RCCEx_PeriphCLKConfig_45:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+12
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_47
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_46
         LDR      R0,[R4, #+60]
         CMP      R0,#+0
-        BEQ.N    ??HAL_RCCEx_PeriphCLKConfig_48
-??HAL_RCCEx_PeriphCLKConfig_47:
+        BEQ.N    ??HAL_RCCEx_PeriphCLKConfig_47
+??HAL_RCCEx_PeriphCLKConfig_46:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+11
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_49
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_48
         LDR      R0,[R4, #+64]
         CMP      R0,#+0
-        BNE.N    ??HAL_RCCEx_PeriphCLKConfig_49
-??HAL_RCCEx_PeriphCLKConfig_48:
-        LDR.W    R0,??DataTable2_9  ;; 0x40023888
+        BNE.N    ??HAL_RCCEx_PeriphCLKConfig_48
+??HAL_RCCEx_PeriphCLKConfig_47:
+        LDR.W    R0,??DataTable2_10  ;; 0x40023888
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0x30000
         MOV      R1,#+49152
         CLZ      R1,R1
         LSRS     R0,R0,R1
         MOVS     R6,R0
-        LDR.W    R0,??DataTable2_9  ;; 0x40023888
+        LDR.W    R0,??DataTable2_10  ;; 0x40023888
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0x70000000
         MOVS     R1,#+14
         CLZ      R1,R1
         LSRS     R0,R0,R1
         MOVS     R7,R0
-        LDR      R0,[R4, #+20]
-        LSLS     R1,R6,#+16
-        ORRS     R0,R1,R0, LSL #+6
-        LDR      R1,[R4, #+24]
-        ORRS     R0,R0,R1, LSL #+24
-        ORRS     R0,R0,R7, LSL #+28
-        LDR.W    R1,??DataTable2_9  ;; 0x40023888
+        LDR.W    R0,??DataTable2_9  ;; 0x3fe0000
+        CLZ      R2,R0
+        MOV      R0,#+49152
+        CLZ      R3,R0
+        MOVS     R0,#+240
+        CLZ      R0,R0
+        MOVS     R1,#+14
+        CLZ      R1,R1
+        LDR      R12,[R4, #+20]
+        LSLS     R2,R12,R2
+        LSLS     R3,R6,R3
+        ORRS     R2,R3,R2
+        LDR      R3,[R4, #+24]
+        LSLS     R0,R3,R0
+        ORRS     R0,R0,R2
+        LSLS     R1,R7,R1
+        ORRS     R0,R1,R0
+        LDR.W    R1,??DataTable2_10  ;; 0x40023888
         STR      R0,[R1, #+0]
         LDR.W    R0,??DataTable2_1  ;; 0x4002388c
         LDR      R0,[R0, #+0]
@@ -669,88 +725,110 @@ HAL_RCCEx_PeriphCLKConfig:
         ORRS     R0,R0,R1, LSL #+8
         LDR.W    R1,??DataTable2_1  ;; 0x4002388c
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_49:
+??HAL_RCCEx_PeriphCLKConfig_48:
         LDR      R0,[R4, #+0]
         LSLS     R0,R0,#+10
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_50
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_49
         LDR      R0,[R4, #+124]
         CMP      R0,#+134217728
-        BNE.N    ??HAL_RCCEx_PeriphCLKConfig_50
-        LDR.W    R0,??DataTable2_9  ;; 0x40023888
+        BNE.N    ??HAL_RCCEx_PeriphCLKConfig_49
+        LDR.W    R0,??DataTable2_10  ;; 0x40023888
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0xF000000
         MOVS     R1,#+240
         CLZ      R1,R1
         LSRS     R0,R0,R1
         MOVS     R6,R0
-        LDR.W    R0,??DataTable2_9  ;; 0x40023888
+        LDR.W    R0,??DataTable2_10  ;; 0x40023888
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0x70000000
         MOVS     R1,#+14
         CLZ      R1,R1
         LSRS     R0,R0,R1
         MOVS     R7,R0
-        LDR      R0,[R4, #+20]
-        LDR      R1,[R4, #+32]
-        LSLS     R1,R1,#+16
-        ORRS     R0,R1,R0, LSL #+6
-        ORRS     R0,R0,R6, LSL #+24
-        ORRS     R0,R0,R7, LSL #+28
-        LDR.W    R1,??DataTable2_9  ;; 0x40023888
+        LDR.W    R0,??DataTable2_9  ;; 0x3fe0000
+        CLZ      R3,R0
+        MOV      R0,#+49152
+        CLZ      R0,R0
+        MOVS     R1,#+240
+        CLZ      R1,R1
+        MOVS     R2,#+14
+        CLZ      R2,R2
+        LDR      R12,[R4, #+20]
+        LSLS     R3,R12,R3
+        LDR      R12,[R4, #+32]
+        LSLS     R0,R12,R0
+        ORRS     R0,R0,R3
+        LSLS     R1,R6,R1
+        ORRS     R0,R1,R0
+        LSLS     R1,R7,R2
+        ORRS     R0,R1,R0
+        LDR.W    R1,??DataTable2_10  ;; 0x40023888
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_50:
+??HAL_RCCEx_PeriphCLKConfig_49:
         LDRB     R0,[R4, #+0]
         LSLS     R0,R0,#+28
-        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_51
-        LDR.W    R0,??DataTable2_9  ;; 0x40023888
+        BPL.N    ??HAL_RCCEx_PeriphCLKConfig_50
+        LDR.W    R0,??DataTable2_10  ;; 0x40023888
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0xF000000
         MOVS     R1,#+240
         CLZ      R1,R1
         LSRS     R0,R0,R1
         MOVS     R6,R0
-        LDR.W    R0,??DataTable2_9  ;; 0x40023888
+        LDR.W    R0,??DataTable2_10  ;; 0x40023888
         LDR      R0,[R0, #+0]
         ANDS     R0,R0,#0x30000
         MOV      R1,#+49152
         CLZ      R1,R1
         LSRS     R0,R0,R1
         MOVS     R7,R0
-        LDR      R0,[R4, #+20]
-        LSLS     R1,R7,#+16
-        ORRS     R0,R1,R0, LSL #+6
-        ORRS     R0,R0,R6, LSL #+24
-        LDR      R1,[R4, #+28]
-        ORRS     R0,R0,R1, LSL #+28
-        LDR.N    R1,??DataTable2_9  ;; 0x40023888
+        LDR.W    R0,??DataTable2_9  ;; 0x3fe0000
+        CLZ      R2,R0
+        MOV      R0,#+49152
+        CLZ      R3,R0
+        MOVS     R0,#+240
+        CLZ      R0,R0
+        MOVS     R1,#+14
+        CLZ      R1,R1
+        LDR      R12,[R4, #+20]
+        LSLS     R2,R12,R2
+        LSLS     R3,R7,R3
+        ORRS     R2,R3,R2
+        LSLS     R0,R6,R0
+        ORRS     R0,R0,R2
+        LDR      R2,[R4, #+28]
+        LSLS     R1,R2,R1
+        ORRS     R0,R1,R0
+        LDR.W    R1,??DataTable2_10  ;; 0x40023888
         STR      R0,[R1, #+0]
-        LDR.N    R0,??DataTable2_1  ;; 0x4002388c
+        LDR.W    R0,??DataTable2_1  ;; 0x4002388c
         LDR      R0,[R0, #+0]
         BICS     R0,R0,#0x30000
         LDR      R1,[R4, #+44]
         ORRS     R0,R1,R0
-        LDR.N    R1,??DataTable2_1  ;; 0x4002388c
+        LDR.W    R1,??DataTable2_1  ;; 0x4002388c
         STR      R0,[R1, #+0]
-??HAL_RCCEx_PeriphCLKConfig_51:
-        LDR.N    R0,??DataTable2_7  ;; 0x40023800
+??HAL_RCCEx_PeriphCLKConfig_50:
+        LDR.W    R0,??DataTable2_7  ;; 0x40023800
         LDR      R0,[R0, #+0]
         ORRS     R0,R0,#0x10000000
-        LDR.N    R1,??DataTable2_7  ;; 0x40023800
+        LDR.W    R1,??DataTable2_7  ;; 0x40023800
         STR      R0,[R1, #+0]
         BL       HAL_GetTick
         MOVS     R5,R0
-??HAL_RCCEx_PeriphCLKConfig_52:
-        LDR.N    R0,??DataTable2_7  ;; 0x40023800
+??HAL_RCCEx_PeriphCLKConfig_51:
+        LDR.W    R0,??DataTable2_7  ;; 0x40023800
         LDR      R0,[R0, #+0]
         LSLS     R0,R0,#+2
-        BMI.N    ??HAL_RCCEx_PeriphCLKConfig_44
+        BMI.N    ??HAL_RCCEx_PeriphCLKConfig_43
         BL       HAL_GetTick
         SUBS     R0,R0,R5
         CMP      R0,#+101
-        BCC.N    ??HAL_RCCEx_PeriphCLKConfig_52
+        BCC.N    ??HAL_RCCEx_PeriphCLKConfig_51
         MOVS     R0,#+3
         B.N      ??HAL_RCCEx_PeriphCLKConfig_9
-??HAL_RCCEx_PeriphCLKConfig_44:
+??HAL_RCCEx_PeriphCLKConfig_43:
         MOVS     R0,#+0
 ??HAL_RCCEx_PeriphCLKConfig_9:
         POP      {R1,R4-R9,PC}    ;; return
@@ -759,60 +837,60 @@ HAL_RCCEx_PeriphCLKConfig:
         THUMB
 HAL_RCCEx_GetPeriphCLKConfig:
         MOVS     R1,#+0
-        LDR.N    R2,??DataTable2_10  ;; 0xfffff1
+        LDR.W    R2,??DataTable2_11  ;; 0xfffff1
         STR      R2,[R0, #+0]
-        LDR.N    R2,??DataTable2_8  ;; 0x40023884
+        LDR.W    R2,??DataTable2_8  ;; 0x40023884
         LDR      R2,[R2, #+0]
         MOVW     R3,#+32704
         ANDS     R2,R3,R2
-        LDR.N    R3,??DataTable2_11  ;; 0x3fe0000
+        LDR.W    R3,??DataTable2_9  ;; 0x3fe0000
         CLZ      R3,R3
         LSRS     R2,R2,R3
         STR      R2,[R0, #+4]
-        LDR.N    R2,??DataTable2_8  ;; 0x40023884
+        LDR.W    R2,??DataTable2_8  ;; 0x40023884
         LDR      R2,[R2, #+0]
         ANDS     R2,R2,#0x30000
         MOV      R3,#+49152
         CLZ      R3,R3
         LSRS     R2,R2,R3
         STR      R2,[R0, #+16]
-        LDR.N    R2,??DataTable2_8  ;; 0x40023884
+        LDR.W    R2,??DataTable2_8  ;; 0x40023884
         LDR      R2,[R2, #+0]
         ANDS     R2,R2,#0xF000000
         MOVS     R3,#+240
         CLZ      R3,R3
         LSRS     R2,R2,R3
         STR      R2,[R0, #+12]
-        LDR.N    R2,??DataTable2_8  ;; 0x40023884
+        LDR.W    R2,??DataTable2_8  ;; 0x40023884
         LDR      R2,[R2, #+0]
         ANDS     R2,R2,#0x70000000
         MOVS     R3,#+14
         CLZ      R3,R3
         LSRS     R2,R2,R3
         STR      R2,[R0, #+8]
-        LDR.N    R2,??DataTable2_9  ;; 0x40023888
+        LDR.W    R2,??DataTable2_10  ;; 0x40023888
         LDR      R2,[R2, #+0]
         MOVW     R3,#+32704
         ANDS     R2,R3,R2
-        LDR.N    R3,??DataTable2_11  ;; 0x3fe0000
+        LDR.W    R3,??DataTable2_9  ;; 0x3fe0000
         CLZ      R3,R3
         LSRS     R2,R2,R3
         STR      R2,[R0, #+20]
-        LDR.N    R2,??DataTable2_9  ;; 0x40023888
+        LDR.W    R2,??DataTable2_10  ;; 0x40023888
         LDR      R2,[R2, #+0]
         ANDS     R2,R2,#0x30000
         MOV      R3,#+49152
         CLZ      R3,R3
         LSRS     R2,R2,R3
         STR      R2,[R0, #+32]
-        LDR.N    R2,??DataTable2_9  ;; 0x40023888
+        LDR.N    R2,??DataTable2_10  ;; 0x40023888
         LDR      R2,[R2, #+0]
         ANDS     R2,R2,#0xF000000
         MOVS     R3,#+240
         CLZ      R3,R3
         LSRS     R2,R2,R3
         STR      R2,[R0, #+24]
-        LDR.N    R2,??DataTable2_9  ;; 0x40023888
+        LDR.N    R2,??DataTable2_10  ;; 0x40023888
         LDR      R2,[R2, #+0]
         ANDS     R2,R2,#0x70000000
         MOVS     R3,#+14
@@ -948,51 +1026,44 @@ HAL_RCCEx_GetPeriphCLKFreq:
         MOVS     R3,#+0
         MOVS     R4,#+0
         CMP      R1,#+524288
-        BEQ.N    ??HAL_RCCEx_GetPeriphCLKFreq_0
-        CMP      R1,#+1048576
-        BNE.N    ??HAL_RCCEx_GetPeriphCLKFreq_1
-??HAL_RCCEx_GetPeriphCLKFreq_0:
+        BNE.N    ??HAL_RCCEx_GetPeriphCLKFreq_0
         LDR.N    R5,??DataTable2_1  ;; 0x4002388c
         LDR      R5,[R5, #+0]
         MOVS     R4,R5
-        ANDS     R4,R4,#0xF00000
+        ANDS     R4,R4,#0x300000
         MOVS     R5,R4
         CMP      R5,#+0
-        BEQ.N    ??HAL_RCCEx_GetPeriphCLKFreq_2
+        BEQ.N    ??HAL_RCCEx_GetPeriphCLKFreq_1
         CMP      R5,#+1048576
-        BEQ.N    ??HAL_RCCEx_GetPeriphCLKFreq_3
+        BEQ.N    ??HAL_RCCEx_GetPeriphCLKFreq_2
         CMP      R5,#+2097152
-        BEQ.N    ??HAL_RCCEx_GetPeriphCLKFreq_4
-        CMP      R5,#+4194304
         BEQ.N    ??HAL_RCCEx_GetPeriphCLKFreq_3
-        CMP      R5,#+8388608
-        BEQ.N    ??HAL_RCCEx_GetPeriphCLKFreq_4
-        B.N      ??HAL_RCCEx_GetPeriphCLKFreq_5
-??HAL_RCCEx_GetPeriphCLKFreq_2:
+        B.N      ??HAL_RCCEx_GetPeriphCLKFreq_4
+??HAL_RCCEx_GetPeriphCLKFreq_1:
         LDR.N    R5,??DataTable2_12  ;; 0x40023804
         LDR      R5,[R5, #+0]
         LSLS     R5,R5,#+9
-        BMI.N    ??HAL_RCCEx_GetPeriphCLKFreq_6
+        BMI.N    ??HAL_RCCEx_GetPeriphCLKFreq_5
         LDR.N    R5,??DataTable2_13  ;; 0xf42400
         LDR.N    R6,??DataTable2_12  ;; 0x40023804
         LDR      R6,[R6, #+0]
         ANDS     R6,R6,#0x3F
         UDIV     R5,R5,R6
         MOVS     R3,R5
-        B.N      ??HAL_RCCEx_GetPeriphCLKFreq_7
-??HAL_RCCEx_GetPeriphCLKFreq_6:
+        B.N      ??HAL_RCCEx_GetPeriphCLKFreq_6
+??HAL_RCCEx_GetPeriphCLKFreq_5:
         LDR.N    R5,??DataTable2_14  ;; 0x17d7840
         LDR.N    R6,??DataTable2_12  ;; 0x40023804
         LDR      R6,[R6, #+0]
         ANDS     R6,R6,#0x3F
         UDIV     R5,R5,R6
         MOVS     R3,R5
-??HAL_RCCEx_GetPeriphCLKFreq_7:
-        LDR.N    R5,??DataTable2_9  ;; 0x40023888
+??HAL_RCCEx_GetPeriphCLKFreq_6:
+        LDR.N    R5,??DataTable2_10  ;; 0x40023888
         LDR      R5,[R5, #+0]
         UBFX     R5,R5,#+24,#+4
         MOVS     R2,R5
-        LDR.N    R5,??DataTable2_9  ;; 0x40023888
+        LDR.N    R5,??DataTable2_10  ;; 0x40023888
         LDR      R5,[R5, #+0]
         UBFX     R5,R5,#+6,#+9
         MUL      R5,R5,R3
@@ -1004,27 +1075,27 @@ HAL_RCCEx_GetPeriphCLKFreq:
         ADDS     R5,R5,#+1
         MOVS     R2,R5
         UDIV     R0,R0,R2
-        B.N      ??HAL_RCCEx_GetPeriphCLKFreq_1
-??HAL_RCCEx_GetPeriphCLKFreq_3:
+        B.N      ??HAL_RCCEx_GetPeriphCLKFreq_0
+??HAL_RCCEx_GetPeriphCLKFreq_2:
         LDR.N    R5,??DataTable2_12  ;; 0x40023804
         LDR      R5,[R5, #+0]
         LSLS     R5,R5,#+9
-        BMI.N    ??HAL_RCCEx_GetPeriphCLKFreq_8
+        BMI.N    ??HAL_RCCEx_GetPeriphCLKFreq_7
         LDR.N    R5,??DataTable2_13  ;; 0xf42400
         LDR.N    R6,??DataTable2_12  ;; 0x40023804
         LDR      R6,[R6, #+0]
         ANDS     R6,R6,#0x3F
         UDIV     R5,R5,R6
         MOVS     R3,R5
-        B.N      ??HAL_RCCEx_GetPeriphCLKFreq_9
-??HAL_RCCEx_GetPeriphCLKFreq_8:
+        B.N      ??HAL_RCCEx_GetPeriphCLKFreq_8
+??HAL_RCCEx_GetPeriphCLKFreq_7:
         LDR.N    R5,??DataTable2_14  ;; 0x17d7840
         LDR.N    R6,??DataTable2_12  ;; 0x40023804
         LDR      R6,[R6, #+0]
         ANDS     R6,R6,#0x3F
         UDIV     R5,R5,R6
         MOVS     R3,R5
-??HAL_RCCEx_GetPeriphCLKFreq_9:
+??HAL_RCCEx_GetPeriphCLKFreq_8:
         LDR.N    R5,??DataTable2_8  ;; 0x40023884
         LDR      R5,[R5, #+0]
         UBFX     R5,R5,#+24,#+4
@@ -1041,13 +1112,107 @@ HAL_RCCEx_GetPeriphCLKFreq:
         ADDS     R5,R5,#+1
         MOVS     R2,R5
         UDIV     R0,R0,R2
-        B.N      ??HAL_RCCEx_GetPeriphCLKFreq_1
-??HAL_RCCEx_GetPeriphCLKFreq_4:
+        B.N      ??HAL_RCCEx_GetPeriphCLKFreq_0
+??HAL_RCCEx_GetPeriphCLKFreq_3:
         LDR.N    R5,??DataTable2_15  ;; 0xbb8000
         MOVS     R0,R5
-        B.N      ??HAL_RCCEx_GetPeriphCLKFreq_1
-??HAL_RCCEx_GetPeriphCLKFreq_5:
-??HAL_RCCEx_GetPeriphCLKFreq_1:
+        B.N      ??HAL_RCCEx_GetPeriphCLKFreq_0
+??HAL_RCCEx_GetPeriphCLKFreq_4:
+??HAL_RCCEx_GetPeriphCLKFreq_0:
+        CMP      R1,#+1048576
+        BNE.N    ??HAL_RCCEx_GetPeriphCLKFreq_9
+        LDR.N    R5,??DataTable2_1  ;; 0x4002388c
+        LDR      R5,[R5, #+0]
+        MOVS     R4,R5
+        ANDS     R4,R4,#0xC00000
+        MOVS     R5,R4
+        CMP      R5,#+0
+        BEQ.N    ??HAL_RCCEx_GetPeriphCLKFreq_10
+        CMP      R5,#+4194304
+        BEQ.N    ??HAL_RCCEx_GetPeriphCLKFreq_11
+        CMP      R5,#+8388608
+        BEQ.N    ??HAL_RCCEx_GetPeriphCLKFreq_12
+        B.N      ??HAL_RCCEx_GetPeriphCLKFreq_13
+??HAL_RCCEx_GetPeriphCLKFreq_10:
+        LDR.N    R5,??DataTable2_12  ;; 0x40023804
+        LDR      R5,[R5, #+0]
+        LSLS     R5,R5,#+9
+        BMI.N    ??HAL_RCCEx_GetPeriphCLKFreq_14
+        LDR.N    R5,??DataTable2_13  ;; 0xf42400
+        LDR.N    R6,??DataTable2_12  ;; 0x40023804
+        LDR      R6,[R6, #+0]
+        ANDS     R6,R6,#0x3F
+        UDIV     R5,R5,R6
+        MOVS     R3,R5
+        B.N      ??HAL_RCCEx_GetPeriphCLKFreq_15
+??HAL_RCCEx_GetPeriphCLKFreq_14:
+        LDR.N    R5,??DataTable2_14  ;; 0x17d7840
+        LDR.N    R6,??DataTable2_12  ;; 0x40023804
+        LDR      R6,[R6, #+0]
+        ANDS     R6,R6,#0x3F
+        UDIV     R5,R5,R6
+        MOVS     R3,R5
+??HAL_RCCEx_GetPeriphCLKFreq_15:
+        LDR.N    R5,??DataTable2_10  ;; 0x40023888
+        LDR      R5,[R5, #+0]
+        UBFX     R5,R5,#+24,#+4
+        MOVS     R2,R5
+        LDR.N    R5,??DataTable2_10  ;; 0x40023888
+        LDR      R5,[R5, #+0]
+        UBFX     R5,R5,#+6,#+9
+        MUL      R5,R5,R3
+        UDIV     R5,R5,R2
+        MOVS     R0,R5
+        LDR.N    R5,??DataTable2_1  ;; 0x4002388c
+        LDR      R5,[R5, #+0]
+        UBFX     R5,R5,#+8,#+5
+        ADDS     R5,R5,#+1
+        MOVS     R2,R5
+        UDIV     R0,R0,R2
+        B.N      ??HAL_RCCEx_GetPeriphCLKFreq_9
+??HAL_RCCEx_GetPeriphCLKFreq_11:
+        LDR.N    R5,??DataTable2_12  ;; 0x40023804
+        LDR      R5,[R5, #+0]
+        LSLS     R5,R5,#+9
+        BMI.N    ??HAL_RCCEx_GetPeriphCLKFreq_16
+        LDR.N    R5,??DataTable2_13  ;; 0xf42400
+        LDR.N    R6,??DataTable2_12  ;; 0x40023804
+        LDR      R6,[R6, #+0]
+        ANDS     R6,R6,#0x3F
+        UDIV     R5,R5,R6
+        MOVS     R3,R5
+        B.N      ??HAL_RCCEx_GetPeriphCLKFreq_17
+??HAL_RCCEx_GetPeriphCLKFreq_16:
+        LDR.N    R5,??DataTable2_14  ;; 0x17d7840
+        LDR.N    R6,??DataTable2_12  ;; 0x40023804
+        LDR      R6,[R6, #+0]
+        ANDS     R6,R6,#0x3F
+        UDIV     R5,R5,R6
+        MOVS     R3,R5
+??HAL_RCCEx_GetPeriphCLKFreq_17:
+        LDR.N    R5,??DataTable2_8  ;; 0x40023884
+        LDR      R5,[R5, #+0]
+        UBFX     R5,R5,#+24,#+4
+        MOVS     R2,R5
+        LDR.N    R5,??DataTable2_8  ;; 0x40023884
+        LDR      R5,[R5, #+0]
+        UBFX     R5,R5,#+6,#+9
+        MUL      R5,R5,R3
+        UDIV     R5,R5,R2
+        MOVS     R0,R5
+        LDR.N    R5,??DataTable2_1  ;; 0x4002388c
+        LDR      R5,[R5, #+0]
+        ANDS     R5,R5,#0x1F
+        ADDS     R5,R5,#+1
+        MOVS     R2,R5
+        UDIV     R0,R0,R2
+        B.N      ??HAL_RCCEx_GetPeriphCLKFreq_9
+??HAL_RCCEx_GetPeriphCLKFreq_12:
+        LDR.N    R5,??DataTable2_15  ;; 0xbb8000
+        MOVS     R0,R5
+        B.N      ??HAL_RCCEx_GetPeriphCLKFreq_9
+??HAL_RCCEx_GetPeriphCLKFreq_13:
+??HAL_RCCEx_GetPeriphCLKFreq_9:
         POP      {R4-R6}
         BX       LR               ;; return
 
@@ -1109,19 +1274,19 @@ HAL_RCCEx_GetPeriphCLKFreq:
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable2_9:
-        DC32     0x40023888
+        DC32     0x3fe0000
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable2_10:
-        DC32     0xfffff1
+        DC32     0x40023888
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
         DATA
 ??DataTable2_11:
-        DC32     0x3fe0000
+        DC32     0xfffff1
 
         SECTION `.text`:CODE:NOROOT(2)
         SECTION_TYPE SHT_PROGBITS, 0
@@ -1160,9 +1325,9 @@ HAL_RCCEx_GetPeriphCLKFreq:
 
         END
 // 
-// 2 478 bytes in section .text
+// 2 978 bytes in section .text
 // 
-// 2 478 bytes of CODE memory
+// 2 978 bytes of CODE memory
 //
 //Errors: none
 //Warnings: none
